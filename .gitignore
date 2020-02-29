@@ -1,0 +1,19 @@
+# - VIRTUAL ENV
+env
+
+
+# - PYTHON3
+__pycache__
+*.pyc
+
+
+# - macos
+.DS_Store
+Icon?
+
+
+# - DJANGO
+db.sqlite3
+
+
+# - OTHER

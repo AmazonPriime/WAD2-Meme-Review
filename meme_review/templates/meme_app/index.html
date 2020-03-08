@@ -23,37 +23,6 @@
 
 <div class = "form wide-form fade-in">
 		<h1>Popular Today</h1>
-		<div class="row">
-			<figure class = "figure center-figure">
-				<a href="#">
-					<img src="{% static 'images/placeholder.png' %}" class="figure-img img-fluid normalMeme" alt="PlaceHolder">
-				</a>
-				<figcaption class="figure-caption text-center">Author: authorName<br/>
-				<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</br>Likes: likeNum</figcaption>
-			</figure>
-		</div>
-		<hr>
-		<div class="row">
-			<figure class = "figure center-figure">
-				<a href="#">
-					<img src="{% static 'images/placeholder.png' %}" class="figure-img img-fluid normalMeme" alt="PlaceHolder">
-				</a>
-				<figcaption class="figure-caption text-center">Author: authorName<br/>
-				<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</br>Likes: likeNum</figcaption>
-			</figure>
-		</div>
-		<hr>
-		<div class="row">
-			<figure class = "figure center-figure">
-				<a href="#">
-					<img src="{% static 'images/placeholder.png' %}" class="figure-img img-fluid normalMeme" alt="PlaceHolder">
-				</a>
-				<figcaption class="figure-caption text-center">Author: authorName<br/>
-				<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</br>Likes: likeNum</figcaption>
-			</figure>
-		</div>
+		{% include 'meme_app/memeview.html' %}
 </div>
 {%endblock%}

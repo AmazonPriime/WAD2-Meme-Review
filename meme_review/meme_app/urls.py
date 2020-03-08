@@ -6,4 +6,7 @@ app_name = 'meme_app'
 
 urlpatterns = [
 	path('', views.index, name='index'),
+        path('login', views.login, name='login'),
+        path('register', views.register, name='register'),
+        path('top_memes', views.top_memes, name='top_memes'),
 ]

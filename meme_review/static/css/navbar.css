@@ -7,10 +7,13 @@
 .main-item{
 	font-size:20px;
 	color:white;
+	text-align: center;
 }
 .main-item:hover{
-	color:gray;
+	color:grey;
 }
+
+
 
 body { padding-top: 70px; }
 

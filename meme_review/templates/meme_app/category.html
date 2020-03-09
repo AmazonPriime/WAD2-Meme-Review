@@ -1,0 +1,31 @@
+{% extends 'meme_app/base.html' %}
+{% load static %}
+{% block title_block %}
+	categoryName
+{% endblock %}
+
+{% block body_block%}
+<div id="subcategories" class="form wide-form fade-in">
+	<h3>Subcategories</h3> <!--If exists -->
+	<div class="row">
+		<div class = "column">
+			<a href="#">LinkToSubCategory, </a>
+		</div>
+		<div class = "column">
+			<a href="#">LinkToSubCategory, </a>
+		</div>
+		<div class = "column">
+			<a href="#">LinkToSubCategory, </a>
+		</div>
+		<div class = "column">
+			<a href="#">LinkToSubCategory, </a>
+		</div>
+	</div>
+</div>
+
+<div id="trending-in-category" class="form wide-form fade-in">
+	<h3>Trending</h3>
+	{% include 'meme_app/memeview.html' %}
+</div>
+	
+{%endblock%}

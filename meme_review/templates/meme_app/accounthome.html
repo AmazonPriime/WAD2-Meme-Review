@@ -1,0 +1,36 @@
+{% extends 'meme_app/base.html' %}
+{% load static %}
+{% block title_block %}
+	UserName
+{% endblock %}
+
+{% block body_block%}
+<div class = "form wide-form fade-in">
+		<h1>Username</h1>
+		<hr>
+		<form>
+			<div class="row">
+				<div class="col">
+					<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid mediumUserIcon" alt="PlaceHolder">
+					<div class="form-group">
+						<label for="changeAccountImage">Upload new image</label>
+						<input type="file" class="form-control-file submitButton" id="changeAccountImage">
+					</div>
+				</div>
+				<div class="col">
+					<textarea class="form-control fullLength" id="userBio" rows="3">User's bio comes here</textarea>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary">Update</button>
+		</form>
+		<hr>
+		<p>Total memes:</p>
+		<p>Total likes:</p>
+		<p>Total dislikes:</p>
+		<hr>
+</div>
+
+<div class = "form wide-form fade-in">
+		{% include 'meme_app/memeview.html' %}
+</div>
+{%endblock%}

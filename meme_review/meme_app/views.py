@@ -12,3 +12,15 @@ def register(request):
     
 def top_memes(request):
     return render(request, 'meme_app/topmemes.html')
+
+def user_details(request):
+    return render(request, 'meme_app/userdetails.html')
+
+def account_home(request):
+    return render(request, 'meme_app/accounthome.html')
+    
+def category(request):
+    return render(request, 'meme_app/category.html')
+
+def meme(request):
+    return render(request, 'meme_app/meme.html')

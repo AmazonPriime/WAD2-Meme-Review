@@ -54,6 +54,10 @@ figure{
 .loginb{
 	background-color: green;
 }
+
+.fullLength{
+	width: 100%;
+}
 #regPageText{
 	color:gray;
 	margin: 0;
@@ -91,4 +95,9 @@ figure{
 .smallUserIcon{
 	max-width:40px;
 	max-height:40px;
+}
+
+.mediumUserIcon{
+	max-width:120px;
+	max-height:120px;
 }

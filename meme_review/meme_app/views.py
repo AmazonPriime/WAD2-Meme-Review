@@ -24,3 +24,6 @@ def category(request):
 
 def meme(request):
     return render(request, 'meme_app/meme.html')
+    
+def meme_creator(request):
+    return render(request, 'meme_app/memecreator.html')

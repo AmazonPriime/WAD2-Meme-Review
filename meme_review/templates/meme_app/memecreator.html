@@ -1,0 +1,54 @@
+{% extends 'meme_app/base.html' %}
+{% load static %}
+{% block title_block %}
+	Homepage
+{% endblock %}
+
+{% block body_block%}
+
+
+<div class = "form wide-form fade-in">
+		<h1>Meme Creator</h1>
+		<form>
+			 <div class="form-group">
+				<p id="regPageText">Meme's title:</p>
+				<input type="text" class="form-control" placeholder="Title" required>
+			</div>
+			<div class="form-group">
+				<p id="regPageText">Choose main category:</p>
+				<select class="form-control">
+					<option>Cat 1</option>
+					<option>Cat 2</option>
+					<option>Cat 3</option>
+					<option>Cat 4</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<p id="regPageText">Choose  subcategory:</p>
+				<select class="form-control">
+					<option>Cat 1</option>
+					<option>Cat 2</option>
+					<option>Cat 3</option>
+					<option>Cat 4</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<p id="regPageText">Choose  sub-subcategory:</p>
+				<select class="form-control">
+					<option>Cat 1</option>
+					<option>Cat 2</option>
+					<option>Cat 3</option>
+					<option>Cat 4</option>
+				</select>
+			</div>
+			<div class = "form-check">
+			 <input class="form-check-input" type="checkbox" value = "" id="isOver18" enabled>
+			 <label class = "form-check-label" for="isOver18">
+				Is this a rated meme?
+			 </label>
+			</div>
+			MEME CREATOR COMES HERE
+		</form>
+</div>
+
+{%endblock%}

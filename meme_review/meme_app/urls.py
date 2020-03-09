@@ -13,4 +13,5 @@ urlpatterns = [
         path('account_home', views.account_home, name='account_home'),
         path('category', views.category, name='category'),
         path('meme', views.meme, name='meme'),
+        path('meme_creator', views.meme_creator, name='meme_creator'),
 ]

@@ -5,12 +5,9 @@
 {% endblock %}
 
 {% block body_block%}
-<div class = "form wide-form fade-in">
-		<h1>Welcome</h1>
-</div>
 
 <div class = "form wide-form fade-in">
-		<h1>Meme of the day</h1>
+		<h1>Meme Title Comes Here</h1>
 		<figure class = "figure center-figure">
 			<a href="#">
 				<img src="{% static 'images/placeholder.png' %}" class="figure-img img-fluid normalMeme" alt="PlaceHolder">
@@ -46,6 +43,14 @@
 		</form>
 		<hr>
 		<div>
+			<div class = "row">
+				<div class="col-1">
+					<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+				</div>
+				<div class="col-11">
+					<div>Username</div><div>DateOfPublication</div>
+				</div>
+			</div>
 			<p>Comment text comes here</p>
 			<form>
 					<div class="form-group ">
@@ -72,6 +77,25 @@
 					</div>
 			</form>
 		</div>
+		<hr>
+		<div>
+			<div class = "row">
+				<div class="col-1">
+					<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+				</div>
+				<div class="col-11">
+					<div>Username</div><div>DateOfPublication</div>
+				</div>
+			</div>
+			<p>Comment text comes here</p>
+			<form>
+					<div class="form-group ">
+						<button class="btn btn-primary">Like: 48</button>
+						<button class="btn btn-primary">Dislike: 22</button>
+					</div>
+			</form>
+		</div>
+		<hr>
 </div>
 
 <a href={%url 'meme_app:account_home'%}>

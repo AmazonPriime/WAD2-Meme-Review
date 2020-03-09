@@ -84,12 +84,12 @@ figure{
 }
 
 .smallMeme{
-	max-width:200px;
-	max-height:200px;
-}
-.normalMeme{
 	max-width:300px;
 	max-height:300px;
+}
+.normalMeme{
+	max-width:800px;
+	max-height:800px;
 }
 
 .smallUserIcon{

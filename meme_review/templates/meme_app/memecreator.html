@@ -47,8 +47,19 @@
 				Is this a rated meme?
 			 </label>
 			</div>
-			MEME CREATOR COMES HERE
+			<h2>Meme Designer</h2>
+			
+			
 		</form>
+		<div id="memeCreator">
+					<label for="uploadImage">Please select an image to upload</label>
+					<input type="file" accept="image/*" class="form-control-file" id="uploadedImage">
+					<textarea id="top">Top</textarea>
+					<textarea id="bottom">Bottom</textarea>
+					<button id="create-meme">Create meme</button>
+					<canvas id="memeCanvas"></canvas>
+					<script src="{% static 'js/meme_creator.js' %}"></script>
+		</div>
 </div>
 
 {%endblock%}

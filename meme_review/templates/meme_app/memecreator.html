@@ -54,10 +54,65 @@
 		<div id="memeCreator">
 					<label for="uploadImage">Please select an image to upload</label>
 					<input type="file" accept="image/*" class="form-control-file" id="uploadedImage">
-					<textarea id="top">Top</textarea>
-					<textarea id="bottom">Bottom</textarea>
-					<button id="create-meme">Create meme</button>
-					<canvas id="memeCanvas"></canvas>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Enter top text</span>
+						</div>
+						<textarea id="top" class="form-control">Top</textarea>
+					</div>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Enter bottom text</span>
+						</div>
+						<textarea id="bottom" class="form-control">Bottom</textarea>
+					</div>
+					<div class="input-group">
+					<div class="row">
+						<!--Select Font Size -->
+						<div class = "column">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Font size</span>
+								</div>
+								<select class="form-control" id="fontSize">
+										<option value="10">10</option>
+										<option value="12">12</option>
+										<option value="16">16</option>
+										<option value="20">20</option>
+										<option value="24">24</option>
+										<option value="28">28</option>
+										<option value="32">32</option>
+										<option value="36">36</option>
+										<option value="40">40</option>
+								</select>
+							</div>
+						</div>
+						<div class = "column">
+							<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text">Font type</span>
+								</div>
+								<select class="form-control" id="fontType">
+										<option value="Arial Black">Arial Black</option>
+										<option value="Roboto">Roboto</option>
+										<option value="Times">Times</option>
+										<option value="Georgia">Georgia</option>
+										<option value="Bookman">Bookman</option>
+										<option value="Impact">Impact</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-group-prepend col">
+								<span class="input-group-text">Outline width</span>
+							</div>
+							<input type="range" min="0" max="60" value="10" class="custom-range" id="outlineWidth">
+						</div>
+					</div>
+					</div>
+					<button id="create-meme" class="btn btn-primary">Create meme</button><br><hr>
+					<canvas id="memeCanvas"></canvas><br><hr>
+					<button id="submitButton" class="btn btn-primary">Submit meme</button>
 					<script src="{% static 'js/meme_creator.js' %}"></script>
 		</div>
 </div>

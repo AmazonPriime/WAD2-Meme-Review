@@ -10,21 +10,30 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+class Category(models.Model):
+    NAME_MAX_LENGTH = 64
+    name = models.CharField(primary_key=True, max_length=NAME_MAX_LENGTH)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return f"{self.name}"
+
 class Meme(models.Model):
     TITLE_MAX_LENGTH = 64
-    id = models.IntegerField(primary_key=True)
     username = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     picture = models.ImageField(upload_to='meme_images', blank=True)
     date = models.DateField(default=datetime.now)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.id}: {self.title}"
 
 class Comment(models.Model):
-    id = models.IntegerField(primary_key=True)
     username = models.OneToOneField(User, on_delete=models.CASCADE)
     meme = models.OneToOneField(Meme, on_delete=models.CASCADE, null=True)
     text = models.TextField()
@@ -34,14 +43,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.id}: {self.text}"
-
-class Category(models.Model):
-    NAME_MAX_LENGTH = 64
-    name = models.CharField(primary_key=True, max_length=NAME_MAX_LENGTH)
-    meme = models.ForeignKey(Meme, on_delete=models.CASCADE)
-
-    class Meta:
-        verbose_name_plural = 'Categories'
-
-    def __str__(self):
-        return f"{self.name}"

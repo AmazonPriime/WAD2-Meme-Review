@@ -53,11 +53,17 @@ def top_memes(request):
 
 # ONE OF THESE TO BE REMOVED
 def user_details(request, username):
+    context_dict = {}
     try:
+        # get the user and store in context dictionary
         user = UserProfile.objects.get(username = username)
+        context_dict['user'] = user
+
+        # get the user's memes and store them in the context dictionary
+        memes = Meme.objects.all.filter()
     except:
         return render(request, '404.html')
-    return render(request, 'meme_app/userdetails.html')
+    return render(request, 'meme_app/userdetails.html', context_dict)
 
 def account_home(request, username):
     return render(request, 'meme_app/accounthome.html')

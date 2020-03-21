@@ -22,7 +22,7 @@ class Category(models.Model):
 
 class Meme(models.Model):
     TITLE_MAX_LENGTH = 64
-    username = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
     picture = models.ImageField(upload_to='meme_images', blank=True)
     date = models.DateField(default=datetime.now)
@@ -34,7 +34,7 @@ class Meme(models.Model):
         return f"{self.id}: {self.title}"
 
 class Comment(models.Model):
-    username = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     meme = models.OneToOneField(Meme, on_delete=models.CASCADE, null=True)
     text = models.TextField()
     date = models.DateField(default=datetime.now)

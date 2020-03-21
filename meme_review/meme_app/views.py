@@ -37,19 +37,31 @@ def login(request):
 
 def register(request):
     if request.method == 'POST':
-        # need to read over forms in book will come back to this
+        # need to read over forms/docs in book will come back to this
         return redirect(reverse('meme_app:index'))
     else:
         return render(request, 'meme_app/register.html')
 
 def top_memes(request):
-    return render(request, 'meme_app/topmemes.html')
+    context_dict = {}
+    memes = Meme.objects.all()
 
-def user_details(request):
+    # gets the top 9 memes of all time
+    context_dict['top_memes'] = memes.order_by('-likes')[:9]
+
+    return render(request, 'meme_app/topmemes.html', context_dict)
+
+# ONE OF THESE TO BE REMOVED
+def user_details(request, username):
+    try:
+        user = UserProfile.objects.get(username = username)
+    except:
+        return render(request, '404.html')
     return render(request, 'meme_app/userdetails.html')
 
-def account_home(request):
+def account_home(request, username):
     return render(request, 'meme_app/accounthome.html')
+############################
 
 def category(request):
     return render(request, 'meme_app/category.html')

@@ -60,13 +60,25 @@ def user_details(request, username):
         context_dict['user'] = user
 
         # get the user's memes and store them in the context dictionary
-        memes = Meme.objects.all.filter()
+        memes = Meme.objects.all.filter(user = user)
+        context_dict['memes'] = memes
     except:
         return render(request, '404.html')
     return render(request, 'meme_app/userdetails.html', context_dict)
 
 def account_home(request, username):
-    return render(request, 'meme_app/accounthome.html')
+    context_dict = {}
+    try:
+        # get the user and store in context dictionary
+        user = UserProfile.objects.get(username = username)
+        context_dict['user'] = user
+
+        # get the user's memes and store them in the context dictionary
+        memes = Meme.objects.all.filter(user = user)
+        context_dict['memes'] = memes
+    except:
+        return render(request, '404.html')
+    return render(request, 'meme_app/accounthome.html', context_dict)
 ############################
 
 def category(request):

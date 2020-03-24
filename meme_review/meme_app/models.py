@@ -29,7 +29,7 @@ class Meme(models.Model):
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    nsfw = models.BooleanField(default=false)
+    nsfw = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.id}: {self.title}"

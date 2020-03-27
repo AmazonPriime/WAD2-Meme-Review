@@ -29,7 +29,7 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        fields = ('picture', 'dob')
+        fields = ('picture', 'dob', 'bio')
 
 class MemeForm(forms.ModelForm):
     title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}))

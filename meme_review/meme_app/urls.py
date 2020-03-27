@@ -2,8 +2,6 @@ from django.urls import path, re_path
 from django.urls import include
 from meme_app import views
 
-app_name = 'meme_app'
-
 urlpatterns = [
 	path('', views.index, name='index'),
     path('login/', views.login, name='login'),

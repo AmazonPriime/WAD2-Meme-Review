@@ -18,27 +18,27 @@
 			<div class = "container-fluid"id="navbarNavDropdown">
 				<ul class="container-fluid navbar-nav">
 					<li  class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:index' %}">Home</a>
+						<a class="nav-link main-item" href="{% url 'index' %}">Home</a>
 					</li>
 					<li  class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:top_memes' %}">Top Memes</a>
+						<a class="nav-link main-item" href="{% url 'top_memes' %}">Top Memes</a>
 					</li>
 					<li class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:meme_creator'%}">Meme Creator</a>
+						<a class="nav-link main-item" href="{% url 'meme_creator'%}">Meme Creator</a>
 					</li>
 					<li  class="nav-item dropdown col">
 						<a class="nav-link dropdown-toggle main-item" id="categDropDown" href="#" data-toggle="dropdown">
 							Categories
 						</a>
 						<div class="dropdown-menu dropdown-menu-centre" aria-labelledby="categDropDown">
-							<a class="dropdown-item blur-background" href="{% url 'meme_app:category' 'Some' %}">Some</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' 'Categories' %}">Categories</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' 'Here' %}">Here</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' 'Apple pies' %}">Apple pies</a>
+							<a class="dropdown-item blur-background" href="{% url 'category' 'Some' %}">Some</a>
+							<a class="dropdown-item" href="{% url 'category' 'Categories' %}">Categories</a>
+							<a class="dropdown-item" href="{% url 'category' 'Here' %}">Here</a>
+							<a class="dropdown-item" href="{% url 'category' 'Apple pies' %}">Apple pies</a>
 						</div>
 					</li>
 					<li class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:login' %}">Account</a>
+						<a class="nav-link main-item" href="{% url 'login' %}">Account</a>
 					</li>
 				</ul>
 			</div>

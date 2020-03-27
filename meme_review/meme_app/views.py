@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from meme_app.models import Meme, UserProfile, Category
+from meme_app.models import Meme, UserProfile, Category, Comment
 from datetime import datetime, timedelta, date
 import random
 
@@ -99,6 +99,7 @@ def meme(request, id):
     # try and store meme in context dictionary
     try:
         context_dict['meme'] = Meme.objects.get(id = id)
+        context_dict['comments'] = Comment.objects.all.filter(meme = context_dict['meme'])
     except:
         return render(request, '404.html')
     return render(request, 'meme_app/meme.html', context_dict)

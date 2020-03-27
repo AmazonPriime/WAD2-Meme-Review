@@ -17,7 +17,7 @@ def index(request):
     if(len(memes)>0):
         context_dict['trending_meme'] = memes[random.randint(0,len(memes) - 1)]
     else:
-        context_dict['trending_meme'] = "" #pls fix this
+        context_dict['trending_meme'] = [] #pls fix this
 
     # get memes to store on popular today, top up to 9 memes from today
     yesterday = datetime.now() - timedelta(days = 1)

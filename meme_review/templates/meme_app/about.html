@@ -1,0 +1,13 @@
+{% extends 'meme_app/base.html' %}
+{% load static %}
+{% block title_block %}
+	About
+{% endblock %}
+
+{% block body_block%}
+	<div class="form narrow-form fade-in">
+		<h3>About</h3>
+		<p>Welcome to the about page. This project was created by 4 computing science students. We wanted to include a pciture of our group, but due to a global pandemic its not possible. Below are 4 stickmen representing us. Thanks for visiting the site. :)</p>
+		<img src="{% static 'images/team.png' %}" class="figure-img img-fluid" alt="404 meme">
+	</div>
+{%endblock%}

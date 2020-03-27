@@ -18,39 +18,40 @@
 			<div class = "container-fluid"id="navbarNavDropdown">
 				<ul class="container-fluid navbar-nav">
 					<li  class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:index' %}">Home</a>
+						<a class="nav-link main-item" href="{% url 'index' %}">Home</a>
 					</li>
 					<li  class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:top_memes' %}">Top Memes</a>
+						<a class="nav-link main-item" href="{% url 'top_memes' %}">Top Memes</a>
 					</li>
 					<li class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:meme_creator'%}">Meme Creator</a>
+						<a class="nav-link main-item" href="{% url 'meme_creator'%}">Meme Creator</a>
 					</li>
 					<li  class="nav-item dropdown col">
 						<a class="nav-link dropdown-toggle main-item" id="categDropDown" href="#" data-toggle="dropdown">
 							Categories
 						</a>
 						<div class="dropdown-menu dropdown-menu-centre" aria-labelledby="categDropDown">
-							<a class="dropdown-item blur-background" href="{% url 'meme_app:category' %}">Some</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' %}">Categories</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' %}">Here</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' %}">Apple pies</a>
+							<a class="dropdown-item blur-background" href="{% url 'category' 'Some' %}">Some</a>
+							<a class="dropdown-item" href="{% url 'category' 'Categories' %}">Categories</a>
+							<a class="dropdown-item" href="{% url 'category' 'Here' %}">Here</a>
+							<a class="dropdown-item" href="{% url 'category' 'Apple pies' %}">Apple pies</a>
 						</div>
 					</li>
 					<li class="nav-item col">
-						<a class="nav-link main-item" href="{% url 'meme_app:login' %}">Account</a>
+						<a class="nav-link main-item" href="{% url 'login' %}">Account</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
-		
-		
+
+
 		<div class="absolute">
 			{% block body_block %}
 			{% endblock %}
 		</div>
-		<!-- Meme_Creator JS -->
 		
+		<!-- Meme_Creator JS -->
+
 		<!-- Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

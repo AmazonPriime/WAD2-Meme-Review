@@ -8,25 +8,8 @@
 
 <div class = "form wide-form fade-in">
 		<h1>Meme Title Comes Here</h1>
-		<figure class = "figure center-figure">
-			<a href="#">
-				<img src="{% static 'images/placeholder.png' %}" class="figure-img img-fluid normalMeme" alt="PlaceHolder">
-			</a>
-			<a href={% url 'meme_app:user_details'%}>
-			<figcaption class="figure-caption text-center">authorName<br/>
-				<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</a>
-				</br>Likes: likeNum
-				</br>Dislikes: dislikeNum
-				<form>
-					<div class="form-group ">
-						<button class="btn btn-primary">Like</button>
-						<button class="btn btn-danger">Dislike</button>
-					</div>
-				</form>
-			</figcaption>
-		</figure>
-		
+		{% include 'meme_app/meme_frame.html'%} 
+
 </div>
 
 <div class = "form wide-form fade-in">

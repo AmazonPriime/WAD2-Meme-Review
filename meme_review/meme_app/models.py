@@ -1,44 +1,47 @@
 from django.db import models
-class User(models.Model):
-    NAME_MAX_LENGTH = 64
-    EMAIL_MAX_LENGTH = 64
-    PASSWORD_MAX_LENGTH = 32
-    name = models.CharField(max_length=NAME_MAX_LENGTH, primary_key=True)
-    email = models.EmailField(max_length=EMAIL_MAX_LENGTH)
-    password = models.CharField(max_length=PASSWORD_MAX_LENGTH)
+from django.contrib.auth.models import User
+from datetime import datetime
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
+    picture = models.ImageField(upload_to='profile_images', blank=True)
     dob = models.DateTimeField()
-    adult = models.BooleanField()
-    
-    def __str__(self):
-        return self.name
+    bio = models.TextField(default="")
 
-class Page(models.Model):
+    def __str__(self):
+        return self.user.username
+
+class Category(models.Model):
+    NAME_MAX_LENGTH = 64
+    name = models.CharField(primary_key=True, max_length=NAME_MAX_LENGTH)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return f"{self.name}"
+
+class Meme(models.Model):
     TITLE_MAX_LENGTH = 64
-    TAGS_MAX_LENGTH = 32
-    id = models.IntegerField(primary_key=True)
-    username = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=TITLE_MAX_LENGTH)
-    date = models.DateField()
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
-    tags = models.CharField(max_length=TAGS_MAX_LENGTH)
+    picture = models.ImageField(upload_to='meme_images', blank=True)
+    date = models.DateField(default=datetime.now)
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    nsfw = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.id
+        return f"{self.id}: {self.title}"
 
 class Comment(models.Model):
-    TEXT_MAX_LENGTH = 64 
-    TAGS_MAX_LENGTH = 32
-    id = models.IntegerField(primary_key=True)
-    username = models.ForeignKey(User, on_delete=models.CASCADE, related_name = 'createduser')
-    ratedusername = models.ManyToManyField(User, related_name = 'rateduser')
-    text = models.CharField(max_length=TEXT_MAX_LENGTH)
-    date = models.DateField()
-    likes = models.IntegerField()
-    dislikes = models.IntegerField()
-    tags = models.CharField(max_length=TAGS_MAX_LENGTH)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    meme = models.ForeignKey(Meme, on_delete=models.CASCADE)
+    text = models.TextField()
+    date = models.DateField(default=datetime.now)
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.id
-
-
+        return f"{self.id}: {self.text}"

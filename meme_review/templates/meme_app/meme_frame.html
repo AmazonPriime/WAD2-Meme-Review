@@ -1,0 +1,19 @@
+{% load static %}
+<figure class = "figure center-figure normalMeme">
+	<a href="#">
+		<img src="{% static 'images/placeholder.png' %}" class="figure-img img-fluid" alt="PlaceHolder">
+	</a>
+	<a href={% url 'user_details' 0%}>
+		<figcaption class="figure-caption text-center">authorName<br/>
+		<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+	</a>
+	</br>Likes: likeNum
+	</br>Dislikes: dislikeNum
+	<form> <!-- Only show if user is logged in -->
+		<div class="form-group ">
+			<button class="btn btn-primary">Like</button>
+			<button class="btn btn-danger">Dislike</button>
+		</div>
+	</form>
+	</figcaption>
+</figure>

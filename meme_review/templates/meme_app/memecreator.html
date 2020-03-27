@@ -5,116 +5,78 @@
 {% endblock %}
 
 {% block body_block%}
-
-
-<div class = "form wide-form fade-in">
+	<div class = "form wide-form fade-in">
 		<h1>Meme Creator</h1>
-		<form>
-			 <div class="form-group">
-				<p id="regPageText">Meme's title:</p>
-				<input type="text" class="form-control" placeholder="Title" required>
-			</div>
+		<form id='meme_form' method='post' action="{% url 'meme_creator' %}">
 			<div class="form-group">
-				<p id="regPageText">Choose main category:</p>
-				<select class="form-control">
-					<option>Cat 1</option>
-					<option>Cat 2</option>
-					<option>Cat 3</option>
-					<option>Cat 4</option>
-				</select>
-			</div>
+		     <p id="regPageText">Meme's title:</p>
+		     {{ meme_form.title }}
+	   	</div>
 			<div class="form-group">
-				<p id="regPageText">Choose  subcategory:</p>
-				<select class="form-control">
-					<option>Cat 1</option>
-					<option>Cat 2</option>
-					<option>Cat 3</option>
-					<option>Cat 4</option>
-				</select>
-			</div>
-			<div class="form-group">
-				<p id="regPageText">Choose  sub-subcategory:</p>
-				<select class="form-control">
-					<option>Cat 1</option>
-					<option>Cat 2</option>
-					<option>Cat 3</option>
-					<option>Cat 4</option>
-				</select>
-			</div>
+		    <p id="regPageText">Choose main category:</p>
+		    {{ meme_form.category }}
+		  </div>
 			<div class = "form-check">
-			 <input class="form-check-input" type="checkbox" value = "" id="isOver18" enabled>
-			 <label class = "form-check-label" for="isOver18">
-				Is this a rated meme?
-			 </label>
-			</div>
+			 	{{ meme_form.nsfw }}
+			  <label class = "form-check-label" for="isOver18"> Is this meme NSFW? </label>
+		  </div>
+			<hr>
 			<h2>Meme Designer</h2>
-			
-			
+			<div id="memeCreator">
+      	<label for="uploadImage">Please upload an image:</label>
+	      <input type="file" accept="image/*" class="form-control-file" id="uploadImage">
+				<br>
+				<div class="row">
+					<div class="col">
+			      <div class="input-group">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text">Enter top text</span>
+			        </div>
+			        <input id="top" class="form-control" placeholder="Top text"></input>
+			      </div>
+					</div>
+					<div class="col">
+			      <div class="input-group">
+			        <div class="input-group-prepend">
+			          <span class="input-group-text">Enter bottom text</span>
+			        </div>
+			        <input id="bottom" class="form-control" placeholder="Bottom text"></input>
+			      </div>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+		      <div class="input-group">
+			        <div class = "col">
+			          <div class="input-group">
+			            <div class="input-group-prepend">
+			              <span class="input-group-text">Font size</span>
+			            </div>
+			            <input class="form-control" type="number" value="12" id="fontSize">
+			          </div>
+			        </div>
+			        <div class = "col">
+			          <div class="input-group">
+			            <div class="input-group-prepend">
+			              <span class="input-group-text">Font type</span>
+			            </div>
+			            <select class="form-control" style="-webkit-border-radius: 0;-moz-border-radius: 0;border-radius: 0;" id="fontType">
+		                <option value="Arial Black">Arial Black</option>
+		                <option value="Roboto">Roboto</option>
+		                <option value="Times">Times</option>
+		                <option value="Georgia">Georgia</option>
+		                <option value="Bookman">Bookman</option>
+		                <option value="Impact">Impact</option>
+			            </select>
+			          </div>
+			        </div>
+			        <div class="col">
+			            <span class="input-group-text">Outline width</span>
+			          <input type="range" min="0" max="60" value="10" class="custom-range" id="outlineWidth">
+			        </div>
+	      	</div>
+				</div>
+			</div>
 		</form>
-		<div id="memeCreator">
-					<label for="uploadImage">Please select an image to upload</label>
-					<input type="file" accept="image/*" class="form-control-file" id="uploadedImage">
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Enter top text</span>
-						</div>
-						<textarea id="top" class="form-control">Top</textarea>
-					</div>
-					<div class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text">Enter bottom text</span>
-						</div>
-						<textarea id="bottom" class="form-control">Bottom</textarea>
-					</div>
-					<div class="input-group">
-					<div class="row">
-						<!--Select Font Size -->
-						<div class = "column">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Font size</span>
-								</div>
-								<select class="form-control" id="fontSize">
-										<option value="10">10</option>
-										<option value="12">12</option>
-										<option value="16">16</option>
-										<option value="20">20</option>
-										<option value="24">24</option>
-										<option value="28">28</option>
-										<option value="32">32</option>
-										<option value="36">36</option>
-										<option value="40">40</option>
-								</select>
-							</div>
-						</div>
-						<div class = "column">
-							<div class="input-group">
-								<div class="input-group-prepend">
-									<span class="input-group-text">Font type</span>
-								</div>
-								<select class="form-control" id="fontType">
-										<option value="Arial Black">Arial Black</option>
-										<option value="Roboto">Roboto</option>
-										<option value="Times">Times</option>
-										<option value="Georgia">Georgia</option>
-										<option value="Bookman">Bookman</option>
-										<option value="Impact">Impact</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="input-group-prepend col">
-								<span class="input-group-text">Outline width</span>
-							</div>
-							<input type="range" min="0" max="60" value="10" class="custom-range" id="outlineWidth">
-						</div>
-					</div>
-					</div>
-					<button id="create-meme" class="btn btn-primary">Create meme</button><br><hr>
-					<canvas id="memeCanvas"></canvas><br><hr>
-					<button id="submitButton" class="btn btn-primary">Submit meme</button>
-					<script src="{% static 'js/meme_creator.js' %}"></script>
-		</div>
-</div>
-
+	</div>
 {%endblock%}

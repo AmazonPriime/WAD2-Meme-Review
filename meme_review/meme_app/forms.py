@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from meme_app.models import UserProfile
+from meme_app.models import UserProfile, Meme, Category
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -30,3 +30,12 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('picture', 'dob')
+
+class MemeForm(forms.ModelForm):
+    title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}))
+    category = forms.CharField(widget = forms.Select(attrs = {'class' : 'form-control'}, choices = [(cat, cat) for cat in Category.objects.all()]))
+    nsfw = forms.BooleanField(widget = forms.CheckboxInput(attrs = {'class' : 'form-check-input', 'id' : 'isOver18'}))
+
+    class Meta:
+        model = Meme
+        fields = ('title', 'picture', 'category', 'nsfw')

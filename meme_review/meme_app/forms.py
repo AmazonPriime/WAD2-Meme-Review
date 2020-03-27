@@ -32,8 +32,8 @@ class UserProfileForm(forms.ModelForm):
         fields = ('picture', 'dob', 'bio')
 
 class MemeForm(forms.ModelForm):
-    title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}))
-    category = forms.ModelMultipleChoiceField(queryset = Category.objects.all(), widget = forms.Select(attrs = {'class' : 'form-control'}))
+    title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}), required = True)
+    category = forms.ModelChoiceField(widget = forms.Select(attrs = {'class' : 'form-control'}), queryset = Category.objects.all(),required = True)
     nsfw = forms.BooleanField(widget = forms.CheckboxInput(attrs = {'class' : 'form-check-input', 'id' : 'isOver18'}), required=False)
 
     class Meta:

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from meme_app.models import Meme, UserProfile, Category, Comment
@@ -141,14 +142,14 @@ def meme(request, id):
         return render(request, '404.html')
     return render(request, 'meme_app/meme.html', context_dict)
 
-#@login_required(login_url='login')
+@login_required(login_url='login')
 def meme_creator(request):
     if request.method == 'POST':
         meme_form = MemeForm(request.POST)
 
         if meme_form.is_valid():
             meme = meme_form.save(commit = False)
-            meme.user = request.user
+            meme.user = UserProfile.objects.get(user = request.user)
             meme.picture = request.FILES['picture']
             meme.save()
             return redirect(reverse('meme', args = [meme.id]))
@@ -156,7 +157,6 @@ def meme_creator(request):
             print(meme_form.errors)
     else:
         meme_form = MemeForm()
-
 
     context_dict = {'meme_form' : meme_form}
     return render(request, 'meme_app/memecreator.html', context_dict)

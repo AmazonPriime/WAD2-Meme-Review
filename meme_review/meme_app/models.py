@@ -6,7 +6,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     picture = models.ImageField(upload_to='profile_images', blank=True)
     dob = models.DateTimeField()
-    bio = models.TextField(default="")
+    bio = models.TextField(default="", blank=True)
 
     def __str__(self):
         return self.user.username
@@ -29,6 +29,7 @@ class Meme(models.Model):
     date = models.DateField(default=datetime.now)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
+    category_str = models.CharField(max_length=TITLE_MAX_LENGTH)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     nsfw = models.BooleanField(default=False)
 

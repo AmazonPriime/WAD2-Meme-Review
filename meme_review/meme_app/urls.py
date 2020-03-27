@@ -12,4 +12,5 @@ urlpatterns = [
     re_path(r'^category/(?P<cat>.*)/$', views.category, name='category'),
     re_path(r'^meme/(?P<id>.*)/$', views.meme, name='meme'),
     path('meme_creator/', views.meme_creator, name='meme_creator'),
+    path('about/', views.about, name='about'),
 ]

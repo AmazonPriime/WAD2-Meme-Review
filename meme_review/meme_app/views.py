@@ -159,3 +159,6 @@ def meme_creator(request):
 
     context_dict = {'meme_form' : meme_form}
     return render(request, 'meme_app/memecreator.html', context_dict)
+
+def about(request):
+    return render(request,'meme_app/about.html')

@@ -31,10 +31,10 @@
 							Categories
 						</a>
 						<div class="dropdown-menu dropdown-menu-centre" aria-labelledby="categDropDown">
-							<a class="dropdown-item blur-background" href="{% url 'meme_app:category' %}">Some</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' %}">Categories</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' %}">Here</a>
-							<a class="dropdown-item" href="{% url 'meme_app:category' %}">Apple pies</a>
+							<a class="dropdown-item blur-background" href="{% url 'meme_app:category' 'Some' %}">Some</a>
+							<a class="dropdown-item" href="{% url 'meme_app:category' 'Categories' %}">Categories</a>
+							<a class="dropdown-item" href="{% url 'meme_app:category' 'Here' %}">Here</a>
+							<a class="dropdown-item" href="{% url 'meme_app:category' 'Apple pies' %}">Apple pies</a>
 						</div>
 					</li>
 					<li class="nav-item col">
@@ -43,14 +43,14 @@
 				</ul>
 			</div>
 		</nav>
-		
-		
+
+
 		<div class="absolute">
 			{% block body_block %}
 			{% endblock %}
 		</div>
 		<!-- Meme_Creator JS -->
-		
+
 		<!-- Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

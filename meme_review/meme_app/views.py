@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from meme_app.models import Meme, UserProfile
+from meme_app.models import Meme, UserProfile, Category
 from datetime import datetime, timedelta, date
 import random
 
@@ -83,11 +83,27 @@ def account_home(request, username):
 
 def category(request, cat):
     context_dict = {}
+    # checks if the category exists
+    try:
+        cat_obj = Category.objects.all.get(name = cat)
+    except:
+        return render(request, '404.html')
+
+    # gets memes with a specific category
+    context_dict['memes'] = Meme.objects.all.filter(category = cat_obj)[:9]
+
     return render(request, 'meme_app/category.html', context_dict)
 
-def meme(request):
-    return render(request, 'meme_app/meme.html')
+def meme(request, id):
+    context_dict = {}
+    # try and store meme in context dictionary
+    try:
+        context_dict['meme'] = Meme.objects.get(id = id)
+    except:
+        return render(request, '404.html')
+    return render(request, 'meme_app/meme.html', context_dict)
 
 @login_required
 def meme_creator(request):
+    # do some form magic here
     return render(request, 'meme_app/memecreator.html')

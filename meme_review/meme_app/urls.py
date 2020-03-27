@@ -4,7 +4,7 @@ from meme_app import views
 
 urlpatterns = [
 	path('', views.index, name='index'),
-    path('login/', views.login, name='login'),
+    path('login/', views.user_login, name='login'),
     path('register/', views.register, name='register'),
     path('top_memes/', views.top_memes, name='top_memes'),
     re_path(r'^user_details/(?P<username>.*)/$', views.user_details, name='user_details'),

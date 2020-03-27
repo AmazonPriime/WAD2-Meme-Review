@@ -26,9 +26,10 @@ def index(request):
 
     return render(request, 'meme_app/index.html', context_dict)
 
-def login(request):
+def user_login(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
+            print('im doin it')
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(username = username, password = password)

@@ -15,9 +15,9 @@
 			</script>
 		</div>
 	{% else %}
+		<h2 class="text-center">Create New Account</h2>
 		<form id='user_form' method='post' action="{% url 'register' %}">
 			{% csrf_token %}
-			<h2 class="text-center">Create New Account</h2>
 			{% if user_form.errors %}
 		    {% for field in form %}
 		        {% for error in field.errors %}

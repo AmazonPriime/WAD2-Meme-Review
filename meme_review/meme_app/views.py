@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from meme_app.models import Meme, UserProfile, Category, Comment
+from meme_app.forms import UserForm, UserProfileForm
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
 import random
@@ -26,25 +27,52 @@ def index(request):
     return render(request, 'meme_app/index.html', context_dict)
 
 def login(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        user = authenticate(username = username, password = password)
-        if user:
-            login(request, user)
-            return redirect(reverse('meme_app:index'))
+    if not request.user.is_authenticated:
+        if request.method == 'POST':
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(username = username, password = password)
+            if user:
+                login(request, user)
+                return redirect(reverse('index'))
+            else:
+                print(f"Invalid login details: {username}, {password}")
+                return HttpResponse("Invalid login details supplied.")
         else:
-            print(f"Invalid login details: {username}, {password}")
-            return HttpResponse("Invalid login details supplied.")
+            return render(request, 'meme_app/login.html')
     else:
-        return render(request, 'meme_app/login.html')
+        return redirect(reverse('index'))
 
 def register(request):
-    if request.method == 'POST':
-        # need to read over forms/docs in book will come back to this
-        return redirect(reverse('meme_app:index'))
+    if not request.user.is_authenticated:
+        registered = False
+
+        if request.method == 'POST':
+            user_form = UserForm(request.POST)
+            profile_form = UserProfileForm(request.POST)
+
+            if user_form.is_valid() and profile_form.is_valid():
+                user = user_form.save()
+                user.set_password(user.password)
+                user.save()
+                profile = profile_form.save(commit = False)
+                profile.user = user
+                profile.save()
+                registered = True
+            else:
+                print(user_form.errors, profile_form.errors)
+        else:
+            user_form = UserForm()
+            profile_form = UserProfileForm()
+
+        context_dict = {
+            'user_form' : user_form,
+            'profile_form' : profile_form,
+            'registered' : registered
+        }
+        return render(request, 'meme_app/register.html', context_dict)
     else:
-        return render(request, 'meme_app/register.html')
+        return redirect(reverse('index'))
 
 def top_memes(request):
     context_dict = {}

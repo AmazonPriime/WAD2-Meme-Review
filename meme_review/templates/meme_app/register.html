@@ -6,54 +6,61 @@
 
 {% block body_block%}
 <div class="form fade-in narrow-form">
-	<form>
-		<h2 class="text-center">Create New Account</h2>       
-        <div class="form-group">
-			<p id="regPageText">Username:</p>
-			<input type="text" class="form-control" placeholder="Username" required>
-        </div>
-		<div class="form-group">
-			<p id="regPageText">Name:</p>
-				<div class="form-row">
-				<div class="col">
-					<input type="text" class="form-control" placeholder="First name" required>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Last name" required>
-				</div>
-			</div>
+	{% if registered %}
+		<div class="text-center lead">
+			Thanks for registering! <br>
+			You will be redirected in 3s, if it doesn't automatically redirect you then click <a href="{% url 'index' %}">here</a>
+			<script>
+				window.setTimeout(function () { location.href = "{% url 'index' %}"; }, 3000);
+			</script>
 		</div>
-		<div class="form-group">
-			<p id="regPageText">E-mail address:</p>
-			<input type="text" class="form-control" placeholder="E-mail" required>
-		</div>
-		<div class="form-group">
-			<p id="regPageText">Date of Birth:</p>
-			<div class="form-row">
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Day" required>
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Month" required>
-				</div>
-				<div class="col-6">
-					<input type="text" class="form-control" placeholder="Year" required>
-				</div>
-			</div>
-		</div>
-		
-		<div class="form-group">
-			<p id="regPageText">Please enter and retype password:</p>
-			<input type="password" class="form-control" placeholder="Password" required>
-		</div>
-		<div class="form-group">
-			<input type="password" class="form-control" placeholder="Repeat password" required>
-		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-success btn-block">Register</button>
-		</div>
-	</form>
+	{% else %}
+		<form id='user_form' method='post' action="{% url 'register' %}">
+			{% csrf_token %}
+			<h2 class="text-center">Create New Account</h2>
+			{% if user_form.errors %}
+		    {% for field in form %}
+		        {% for error in field.errors %}
+		            <div class="alert alert-danger"> {{ error|escape }} </div>
+		        {% endfor %}
+		    {% endfor %}
+			{% endif %}
+			<div class="form-group">
+		    <p id="regPageText">Username:</p>
+		    {{ user_form.username }}
+		  </div>
+			<div class="form-group">
+		    <p id="regPageText">Name:</p>
+	      <div class="form-row">
+		      <div class="col">
+		        {{ user_form.first_name }}
+		      </div>
+		      <div class="col">
+		        {{ user_form.last_name }}
+		      </div>
+	    	</div>
+				<div class="form-group">
+			    <p id="regPageText">E-mail address:</p>
+			    {{ user_form.email }}
+			  </div>
+		  </div>
+			<div class="form-group">
+		    <p id="regPageText">Date of Birth:</p>
+		    <div class="form-row">
+					{{ profile_form.dob }}
+		    </div>
+		  </div>
+			<div class="form-group">
+		    <p id="regPageText">Please enter and retype password:</p>
+		    {{ user_form.password }}
+		  </div>
+		  <div class="form-group">
+		    {{ user_form.confirm_password }}
+		  </div>
+		  <div class="form-group">
+		    <button type="submit" class="btn btn-success btn-block">Register</button>
+		  </div>
+		</form>
+	{% endif %}
 </div>
-
-
 {%endblock%}

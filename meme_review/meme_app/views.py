@@ -92,7 +92,7 @@ def category(request, cat):
         cat_obj = Category.objects.all.get(name = cat)
     except:
         return render(request, '404.html')
-    
+
     # gets memes with a specific category
     memes = Meme.objects.all.filter(category = cat_obj)
     paginator = Paginator(memes, 9) # 9 meme per page
@@ -112,7 +112,7 @@ def meme(request, id):
         return render(request, '404.html')
     return render(request, 'meme_app/meme.html', context_dict)
 
-@login_required
+@login_required(login_url='login')
 def meme_creator(request):
     # do some form magic here
     return render(request, 'meme_app/memecreator.html')

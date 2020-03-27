@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from meme_app.models import Meme, UserProfile, Category, Comment
 from datetime import datetime, timedelta, date
+from django.core.paginator import Paginator
 import random
 
 def index(request):
@@ -88,10 +89,13 @@ def category(request, cat):
         cat_obj = Category.objects.all.get(name = cat)
     except:
         return render(request, '404.html')
-
+    
     # gets memes with a specific category
-    context_dict['memes'] = Meme.objects.all.filter(category = cat_obj)[:9]
-
+    memes = Meme.objects.all.filter(category = cat_obj)
+    paginator = Paginator(memes, 9) # 9 meme per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context_dict['page'] = page_obj
     return render(request, 'meme_app/category.html', context_dict)
 
 def meme(request, id):

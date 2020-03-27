@@ -24,24 +24,30 @@ function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
 }
 
 function drawDefaultCanvas(){
-	canvas.width = 200;
-	canvas.height = 200;
-	ctx.clearRect(0,0,200, 200);
-	ctx.lineWidth = 10;
-	ctx.fillStyle = "white";
-	ctx.strokeStyle = "black";
-	ctx.rect(0,0,200,200);
+	canvas.width = 400;
+	canvas.height = 400;
+	ctx.clearRect(0,0,400, 400);
+	ctx.lineWidth = 3;
+	ctx.fillStyle = "#af1dd2";
+	ctx.strokeStyle = "purple";
+	ctx.beginPath();
+	ctx.rect(0,0,400,400);
 	ctx.fill();
 	ctx.stroke();
-	ctx.strokeStyle = "red";
-	ctx.beginPath();
-	ctx.moveTo(0,0);
-	ctx.lineTo(200,200);
-	ctx.stroke();
-	ctx.beginPath();
-	ctx.moveTo(200,0);
-	ctx.lineTo(0,200);
-	ctx.stroke();
+	//start drawing 3 small rectangles
+	ctx.globalAlpha = 0.4;
+	ctx.fillStyle = "#e91e63";
+	var i;
+	for(i = 0; i<3; i++){
+		var shift = i*20;
+		ctx.beginPath();
+		ctx.rect(120-shift,120-shift,200-shift,180-shift);
+	    ctx.fill();
+	    ctx.stroke();
+	}
+	
+
+	
 }
 
 function start(){

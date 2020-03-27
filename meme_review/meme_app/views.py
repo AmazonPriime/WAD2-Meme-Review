@@ -157,6 +157,7 @@ def meme_creator(request):
     else:
         meme_form = MemeForm()
 
+
     context_dict = {'meme_form' : meme_form}
     return render(request, 'meme_app/memecreator.html', context_dict)
 

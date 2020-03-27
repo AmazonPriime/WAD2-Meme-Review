@@ -81,11 +81,13 @@ def account_home(request, username):
     return render(request, 'meme_app/accounthome.html', context_dict)
 ############################
 
-def category(request):
-    return render(request, 'meme_app/category.html')
+def category(request, cat):
+    context_dict = {}
+    return render(request, 'meme_app/category.html', context_dict)
 
 def meme(request):
     return render(request, 'meme_app/meme.html')
 
+@login_required
 def meme_creator(request):
     return render(request, 'meme_app/memecreator.html')

@@ -23,10 +23,30 @@ function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
 	});
 }
 
+function drawDefaultCanvas(){
+	canvas.width = 200;
+	canvas.height = 200;
+	ctx.clearRect(0,0,200, 200);
+	ctx.lineWidth = 10;
+	ctx.fillStyle = "white";
+	ctx.strokeStyle = "black";
+	ctx.rect(0,0,200,200);
+	ctx.fill();
+	ctx.stroke();
+	ctx.strokeStyle = "red";
+	ctx.beginPath();
+	ctx.moveTo(0,0);
+	ctx.lineTo(200,200);
+	ctx.stroke();
+	ctx.beginPath();
+	ctx.moveTo(200,0);
+	ctx.lineTo(0,200);
+	ctx.stroke();
+}
+
 function start(){
 	canvas = document.getElementById("memeCanvas");
 	ctx = canvas.getContext("2d");
-	canvas.width = canvas.height = 0;
 	topText = document.getElementById("top");
 	bottomText = document.getElementById("bottom");
 	uploadedImage = document.getElementById("uploadedImage");
@@ -36,7 +56,8 @@ function start(){
 	submitButton = document.getElementById("submitButton");
 	submitButton.style.visibility="hidden";
 	var el = document.getElementById("output");
-	createButton = document.getElementById("create-meme");
+	drawDefaultCanvas();
+	createButton = document.getElementById("createMeme");
 	createButton.addEventListener("click", function(){
 		let reader = new FileReader();
 		reader.onload = function(){

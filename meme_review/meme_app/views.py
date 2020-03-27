@@ -141,7 +141,7 @@ def meme(request, id):
         return render(request, '404.html')
     return render(request, 'meme_app/meme.html', context_dict)
 
-@login_required(login_url='login')
+#@login_required(login_url='login')
 def meme_creator(request):
     if request.method == 'POST':
         meme_form = MemeForm(request.POST)

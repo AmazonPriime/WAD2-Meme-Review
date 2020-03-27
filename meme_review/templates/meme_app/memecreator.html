@@ -1,13 +1,14 @@
 {% extends 'meme_app/base.html' %}
 {% load static %}
 {% block title_block %}
-	Homepage
+	Meme creator
 {% endblock %}
 
 {% block body_block%}
 	<div class = "form wide-form fade-in">
 		<h1>Meme Creator</h1>
 		<form id='meme_form' method='post' action="{% url 'meme_creator' %}">
+		{% csrf_token %}
 			<div class="form-group">
 		     <p id="regPageText">Meme's title:</p>
 		     {{ meme_form.title }}
@@ -18,7 +19,7 @@
 		  </div>
 			<div class = "form-check">
 			 	{{ meme_form.nsfw }}
-			  <label class = "form-check-label" for="isOver18"> Is this meme NSFW? </label>
+			  <label class = "form-check-label" for="isOver18" > Is this meme NSFW? </label>
 		  </div>
 			<hr>
 			<h2>Meme Designer</h2>
@@ -77,6 +78,11 @@
 	      	</div>
 				</div>
 			</div>
+			<button id="createMeme" class="btn btn-primary">Create meme</button><br><hr>
+			<h4>Preview</h4>
+			<canvas id="memeCanvas"></canvas><br><hr>
+			<button id="submitButton" class="btn btn-primary">Submit meme</button>
 		</form>
+		<script src="{% static 'js/meme_creator.js' %}"></script>
 	</div>
 {%endblock%}

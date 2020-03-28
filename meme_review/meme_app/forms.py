@@ -33,7 +33,7 @@ class UserProfileForm(forms.ModelForm):
 
 class MemeForm(forms.ModelForm):
     title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}), required = True)
-    category = forms.ModelChoiceField(widget = forms.Select(attrs = {'class' : 'form-control'}), queryset = Category.objects.all(),required = True)
+    category = forms.ModelChoiceField(widget = forms.Select(attrs = {'class' : 'form-control'}), queryset = Category.objects.all(), required = True)
     nsfw = forms.BooleanField(widget = forms.CheckboxInput(attrs = {'class' : 'form-check-input', 'id' : 'isOver18'}), required=False)
 
     class Meta:

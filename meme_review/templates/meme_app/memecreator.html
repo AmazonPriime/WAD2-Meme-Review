@@ -53,7 +53,7 @@
 			            <div class="input-group-prepend">
 			              <span class="input-group-text">Font size</span>
 			            </div>
-			            <input class="form-control" type="number" value="12" id="fontSize">
+			            <input class="form-control" type="number" value="12" min="7" max="72" id="fontSize">
 			          </div>
 			        </div>
 			        <div class = "col">
@@ -78,11 +78,14 @@
 	      	</div>
 				</div>
 			</div>
-			<button id="createMeme" class="btn btn-primary">Create meme</button><br><hr>
+			<button id="createMeme" class="btn btn-primary" type="button">Create meme</button><br><hr>
 			<h4>Preview</h4>
 			<canvas id="memeCanvas"></canvas><br><hr>
+			<img id="imageField" style="display: none"></img>
 			<button id="submitButton" class="btn btn-primary">Submit meme</button>
+			<script src="{% static 'js/meme_creator.js' %}"></script>
+			<div id="tester"></div>
 		</form>
-		<script src="{% static 'js/meme_creator.js' %}"></script>
+		
 	</div>
 {%endblock%}

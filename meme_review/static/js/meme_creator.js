@@ -1,11 +1,10 @@
 //https://www.youtube.com/watch?v=aIgWxXlpRvU
-let canvas,ctx, uploadedImage, topText, bottomText, createButton, fontSize, fontName, outlineWidth, submitButton;
+let canvas,ctx, uploadedImage, topText, bottomText, createButton, fontSize, fontName, outlineWidth, submitButton, imageField;
 function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
-	canvas.width = img.width;
-	canvas.height = img.height;
+	imageField.width =canvas.width = img.width;
+	imageField.height =canvas.height = img.height;
 	ctx.clearRect(0,0,canvas.width, canvas.height);
 	ctx.drawImage(img,0,0);
-	
 	ctx.font = fontSize + 'px '+fontName;
 	ctx.fillStyle = "white";
 	ctx.strokeStyle = "black";
@@ -21,6 +20,10 @@ function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
 		ctx.fillText(curText, canvas.width/2, canvas.height-i*fontSize, canvas.width);
 		ctx.strokeText(curText, canvas.width/2, canvas.height-i*fontSize, canvas.width);
 	});
+	//now convert canvas to image and set the image to hidden img field
+	var curImage = new Image();
+	curImage.src = canvas.toDataURL("image/png");
+	imageField.src = curImage.src;
 }
 
 function drawDefaultCanvas(){
@@ -55,13 +58,13 @@ function start(){
 	ctx = canvas.getContext("2d");
 	topText = document.getElementById("top");
 	bottomText = document.getElementById("bottom");
-	uploadedImage = document.getElementById("uploadedImage");
+	uploadedImage = document.getElementById("uploadImage");
 	fontSize = document.getElementById("fontSize");
 	fontName = document.getElementById("fontType");
 	outlineWidth = document.getElementById("outlineWidth");
 	submitButton = document.getElementById("submitButton");
 	submitButton.style.visibility="hidden";
-	var el = document.getElementById("output");
+	imageField = document.getElementById("imageField");
 	drawDefaultCanvas();
 	createButton = document.getElementById("createMeme");
 	createButton.addEventListener("click", function(){
@@ -69,7 +72,7 @@ function start(){
 		reader.onload = function(){
 			let img = new Image;
 			img.src = reader.result;
-			createMeme(img,topText.value,bottomText.value,fontSize.options[fontSize.selectedIndex].value, fontName.options[fontName.selectedIndex].value, outlineWidth.value);
+			createMeme(img,topText.value,bottomText.value,fontSize.value, fontName.options[fontName.selectedIndex].value, outlineWidth.value);
 			submitButton.style.visibility="visible";
 		};
 		reader.readAsDataURL(uploadedImage.files[0]);

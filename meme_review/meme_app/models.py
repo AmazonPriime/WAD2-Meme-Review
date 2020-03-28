@@ -29,7 +29,7 @@ class Meme(models.Model):
     date = models.DateField(default=datetime.now)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
-    category_str = models.CharField(max_length=TITLE_MAX_LENGTH)
+    category_str = models.CharField(default="",max_length=TITLE_MAX_LENGTH) #I added default value, caused an error, @Amazon pls take a look at it
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     nsfw = models.BooleanField(default=False)
 

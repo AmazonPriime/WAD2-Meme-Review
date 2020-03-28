@@ -5,7 +5,7 @@ from datetime import datetime
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete = models.CASCADE)
     picture = models.ImageField(upload_to='profile_images', blank=True)
-    dob = models.DateTimeField()
+    dob = models.DateField()
     bio = models.TextField(default="", blank=True)
 
     def __str__(self):

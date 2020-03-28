@@ -5,18 +5,18 @@
 {% endblock %}
 
 {% block body_block%}
-<div id="trending" class="form wide-form fade-in">
-	<h3>Trending</h3>
-	{% include 'meme_app/memeview.html' %}
-</div>
 
-<div id="trending-cat-1" class="form wide-form fade-in">
-	<h3>Trending Category 1</h3>
-	{% include 'meme_app/memeview.html' %}
-</div>
+{% if top_memes %}
+	{% for meme in top_memes %}
+		<div id="trending" class="form wide-form fade-in">
+			<h3>{{meme.name}}</h3>
+			{% include 'meme_app/memeview.html' with memes=memes %}
+		</div>
+	{% endfor %}
+	{% else %}
+		<div id="trending" class="form wide-form fade-in">
+			<strong>Currently no trending memes.</strong>
+		</div>
+	{% endif %}
 
-<div id="trending-cat-2" class="form wide-form fade-in">
-	<h3>Trending Category 2</h3>
-	{% include 'meme_app/memeview.html' %}
-</div>		
 {%endblock%}

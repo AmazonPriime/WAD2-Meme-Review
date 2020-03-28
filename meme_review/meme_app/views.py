@@ -81,7 +81,7 @@ def top_memes(request):
     memes = Meme.objects.all()
 
     # gets the top 9 memes of all time
-    context_dict['top_memes'] = {"name": "Top memes", "memes":memes.order_by('-likes')[:9]}
+    context_dict['top_memes'] = [{"name": "Top memes", "memes":memes.order_by('-likes')[:9]}]
 
     return render(request, 'meme_app/topmemes.html', context_dict)
 

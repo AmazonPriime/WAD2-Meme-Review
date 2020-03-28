@@ -17,7 +17,7 @@
 {% if trending_meme %}
 	<div class = "form wide-form fade-in">
 		<h3>{{trending_meme.name}}</h3>
-		{% include 'meme_app/meme_frame.html' with memes = trending_meme %}
+		{% include 'meme_app/meme_frame.html' with meme = trending_meme %}
 	</div>
 {% else %}
 	<div id="trending" class="form wide-form fade-in">

@@ -4,7 +4,7 @@
 	{% for meme in memes %}
 		<div class="column">
 			<figure class = "figure center-figure smallMeme">
-			{% include 'meme_app/meme_frame.html' memes=meme.memes%}
+			{% include 'meme_app/meme_frame.html' with memes=meme.memes%}
 				<a href={% url 'meme' 0 %}>
 					<img src="meme.picture" class="figure-img img-fluid" alt="PlaceHolder">
 				</a>

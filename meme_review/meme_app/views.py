@@ -166,8 +166,7 @@ def meme(request, id):
     try:
         meme = Meme.objects.get(id = id)
         context_dict['meme'] = meme
-        context_dict['comments'] = Comment.objects.all.filter(meme = context_dict['meme'])
-
+        context_dict['comments'] = Comment.objects.all().filter(meme = context_dict['meme'])
         # check user session id and add the view to the meme
         if not request.session.session_key:
             request.session.save()
@@ -211,6 +210,24 @@ def about(request):
 
 def unsupported(request):
     return render(request,'unsupported.html')
+
+
+def rate(request, id, type):
+    context_dict = {}
+    context_dict['categories'] = Category.objects.all()
+    try:
+        meme = Meme.objects.get(id = id)
+    except:
+        render(request, '404.html', context_dict)
+    value = request.GET.get('value')
+    print(type)
+    if value == '1':
+        meme.likes += 1
+    elif type == '0':
+        meme.dislikes += 1
+    meme.save()
+    return redirect(reverse('meme', args = [meme.id]))
+
 
 def restrictor(user):
     if not user.is_authenticated:

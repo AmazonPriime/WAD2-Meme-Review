@@ -14,6 +14,7 @@ import random
 def index(request):
     context_dict = {}
     memes = Meme.objects.all()
+    context_dict['categories'] = Category.objects.all()
 
     # get a trending meme, random from 5 most liked in past week
     seven_days_ago = datetime.now() - timedelta(days = 7)
@@ -31,6 +32,8 @@ def index(request):
 
 
 def user_login(request):
+    context_dict = {}
+    context_dict['categories'] = Category.objects.all()
     if not request.user.is_authenticated:
         if request.method == 'POST':
             username = request.POST.get('username')
@@ -43,7 +46,7 @@ def user_login(request):
                 messages.error(request, "Username or password is incorrect")
                 return redirect(reverse('login'))
         else:
-            return render(request, 'meme_app/login.html')
+            return render(request, 'meme_app/login.html', context_dict)
     else:
         return redirect(reverse('index'))
 
@@ -79,7 +82,8 @@ def register(request):
         context_dict = {
             'user_form' : user_form,
             'profile_form' : profile_form,
-            'registered' : registered
+            'registered' : registered,
+            'categories' : Category.objects.all()
         }
         return render(request, 'meme_app/register.html', context_dict)
     else:
@@ -89,6 +93,7 @@ def register(request):
 def top_memes(request):
     context_dict = {}
     memes = Meme.objects.all().filter(nsfw = (not restrictor(request.user)))
+    context_dict['categories'] = Category.objects.all()
 
     # gets the top 9 memes of all time
     context_dict['top_memes'] = [{"name": "Top memes", "memes":memes.order_by('-likes')[:9]}]
@@ -98,6 +103,7 @@ def top_memes(request):
 
 def account(request, username):
     context_dict = {}
+    context_dict['categories'] = Category.objects.all()
     try:
         user = UserProfile.objects.get(user__username = username)
         context_dict['profile'] = user
@@ -132,6 +138,7 @@ def account(request, username):
 
 def category(request, cat):
     context_dict = {}
+    context_dict['categories'] = Category.objects.all()
     # checks if the category exists
     try:
         print(cat)
@@ -151,6 +158,7 @@ def category(request, cat):
 
 def meme(request, id):
     context_dict = {}
+    context_dict['categories'] = Category.objects.all()
     # try and store meme in context dictionary
     try:
         meme = Meme.objects.get(id = id)
@@ -188,12 +196,16 @@ def meme_creator(request):
     else:
         meme_form = MemeForm()
 
-    context_dict = {'meme_form' : meme_form}
+    context_dict = {'meme_form' : meme_form, 'categories' : Category.objects.all()}
     return render(request, 'meme_app/memecreator.html', context_dict)
 
 
 def about(request):
-    return render(request,'meme_app/about.html')
+    context_dict = {}
+    context_dict['categories'] = Category.objects.all()
+    return render(request,'meme_app/about.html', context_dict)
+
+
 def unsupported(request):
     return render(request,'unsupported.html')
 

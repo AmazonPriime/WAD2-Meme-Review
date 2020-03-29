@@ -1,0 +1,47 @@
+{% extends 'meme_app/base.html' %}
+{% load static %}
+{% block title_block %}
+	{{ profile.user.username }}
+{% endblock %}
+
+{% block body_block %}
+  <div class = "form wide-form fade-in">
+    <h1>{{ profile.user.username }}</h1>
+    <hr>
+    {% if request.user == profile.user %}
+      <form id='profile_form' method='post' action="{% url 'account' request.user.username %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col">
+            <img src="{% if img_url %}{{ MEDIA_URL }}{{ img_url }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid mediumUserIcon" alt="PlaceHolder">
+            <div class="form-group">
+              <label for="changeAccountImage">Upload new image</label>
+  						{{ profile_form.picture }}
+            </div>
+          </div>
+          <div class="col">
+            {{ profile_form.bio }}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    {% else %}
+      <div class="row">
+        <div class="col">
+          <img src="{% if img_url %}{{ MEDIA_URL }}{{ img_url }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid mediumUserIcon" alt="PlaceHolder">
+        </div>
+        <div class="col">
+          <p>{{ profile.bio }}</p>
+        </div>
+      </div>
+    {% endif %}
+    <hr>
+    <p>Total Memes: {{ meme_total }}</p>
+    <p>Total Likes: {{ likes_total }}</p>
+    <p>Total Dislikes: {{ dislikes_total }}</p>
+    <hr>
+  </div>
+  <div class = "form wide-form fade-in">
+  		{% include 'meme_app/memeview.html' with memes=memes %}
+  </div>
+{% endblock %}

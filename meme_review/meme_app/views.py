@@ -194,7 +194,8 @@ def meme_creator(request):
 
 def about(request):
     return render(request,'meme_app/about.html')
-
+def unsupported(request):
+    return render(request,'unsupported.html')
 
 def restrictor(user):
     if not user.is_authenticated:

@@ -25,15 +25,23 @@ class UserForm(forms.ModelForm):
             raise forms.ValidationError("password and confirm_password does not match")
 
 class UserProfileForm(forms.ModelForm):
-    dob = forms.DateField(widget=DateInput(attrs = {'class' : 'form-control'}))
+    dob = forms.DateField(widget = DateInput(attrs = {'class' : 'form-control'}))
 
     class Meta:
         model = UserProfile
-        fields = ('picture', 'dob', 'bio')
+        fields = ('dob',)
+
+class AccountForm(forms.ModelForm):
+    picture = forms.ImageField(widget = forms.FileInput(attrs = {'class' : 'form-control-file submitButton', 'id' : 'changeAccountImage'}), required = False)
+    bio = forms.CharField(widget = forms.Textarea(attrs = {'class' : 'form-control fullLength', 'id' : 'userBio', 'rows' : '3'}), required = False)
+
+    class Meta:
+        model = UserProfile
+        fields = ('picture', 'bio')
 
 class MemeForm(forms.ModelForm):
     title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}), required = True)
-    category = forms.ModelChoiceField(widget = forms.Select(attrs = {'class' : 'form-control'}), queryset = Category.objects.all(),required = True)
+    category = forms.ModelChoiceField(widget = forms.Select(attrs = {'class' : 'form-control'}), queryset = Category.objects.all(), required = True)
     nsfw = forms.BooleanField(widget = forms.CheckboxInput(attrs = {'class' : 'form-check-input', 'id' : 'isOver18'}), required=False)
 
     class Meta:

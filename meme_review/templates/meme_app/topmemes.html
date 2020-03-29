@@ -9,14 +9,14 @@
 {% if top_memes %}
 	{% for meme in top_memes %}
 		<div id="trending" class="form wide-form fade-in">
-			<h3>{{meme.name}}</h3>
-			{% include 'meme_app/memeview.html' with memes=memes %}
+			<h3>{{meme.title}}</h3>
+			{% include 'meme_app/memeview.html' with memes=meme.memes %}
 		</div>
 	{% endfor %}
-	{% else %}
+{% else %}
 		<div id="trending" class="form wide-form fade-in">
 			<strong>Currently no trending memes.</strong>
 		</div>
-	{% endif %}
+{% endif %}
 
 {%endblock%}

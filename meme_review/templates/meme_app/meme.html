@@ -7,7 +7,7 @@
 {% block body_block%}
 
 <div class = "form wide-form fade-in">
-		<h1>Meme Title Comes Here</h1>
+		<h1>{{meme.title}}</h1>
 		{% include 'meme_app/meme_frame.html'%} 
 
 </div>
@@ -26,59 +26,25 @@
 		</form>
 		<hr>
 		<div>
+			{% for comment in comments %}
 			<div class = "row">
 				<div class="col-1">
-					<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+					<img src="{% if user.picture %}user.picture{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
 				</div>
 				<div class="col-11">
-					<div>Username</div><div>DateOfPublication</div>
+					<div>{{comment.user.name}}</div><div>{{comment.date}}</div>
 				</div>
 			</div>
-			<p>Comment text comes here</p>
+			<p>{{comment.text}}</p>
 			<form>
 					<div class="form-group ">
-						<button class="btn btn-primary">Like: 48</button>
-						<button class="btn btn-danger">Dislike: 22</button>
+						<button class="btn btn-primary">Like: {{comment.likes}}</button>
+						<button class="btn btn-danger">Dislike: {{comment.dislikes}}</button>
 					</div>
 			</form>
+			{% endfor %}
 		</div>
-		<hr>
-		<div>
-			<div class = "row">
-				<div class="col-1">
-					<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</div>
-				<div class="col-11">
-					<div>Username</div><div>DateOfPublication</div>
-				</div>
-			</div>
-			<p>Comment text comes here</p>
-			<form>
-					<div class="form-group ">
-						<button class="btn btn-primary">Like: 48</button>
-						<button class="btn btn-danger">Dislike: 22</button>
-					</div>
-			</form>
-		</div>
-		<hr>
-		<div>
-			<div class = "row">
-				<div class="col-1">
-					<img src="{% static 'images/user_default.png' %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</div>
-				<div class="col-11">
-					<div>Username</div><div>DateOfPublication</div>
-				</div>
-			</div>
-			<p>Comment text comes here</p>
-			<form>
-					<div class="form-group ">
-						<button class="btn btn-primary">Like: 48</button>
-						<button class="btn btn-danger">Dislike: 22</button>
-					</div>
-			</form>
-		</div>
-		<hr>
+		
 </div>
 
 <a href={%url 'meme_app:account_home'%}>

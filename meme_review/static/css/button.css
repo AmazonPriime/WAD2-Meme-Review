@@ -1,0 +1,142 @@
+.form-control, .btn {
+        min-height: 38px;
+		border-radius: 2px;
+        
+}
+
+
+.btn-primary {      
+		background-color: rgba(0,0,0,0.2)
+        font-size: 15px;
+        font-weight: bold;
+		border: none;
+		-webkit-animation-duration: 1s;
+		animation-duration: 1;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		-webkit-animation-name: button-fadeout;
+		animation-name: button-fadeout;
+		
+}
+.btn-primary:hover{
+	-webkit-animation-duration: 1s;
+	animation-duration: 1;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: button-fadein;
+	animation-name: button-fadein;
+}
+
+@-webkit-keyframes button-fadein {
+	0% {background-color: rgba(0,0,0,0.2)}
+	100% {background-color: rgba(0,0,0,0.5)}
+         }
+         
+@keyframes button-fadein{
+	0% {background-color: rgba(0,0,0,0.2)}
+    100% {background-color: rgba(0,0,0,0.5)}
+}
+
+@-webkit-keyframes button-fadeout {
+	0% {background-color: rgba(0,0,0,0.5)}
+	100% {background-color: rgba(0,0,0,0.2)}
+         }
+         
+@keyframes button-fadeout{
+	0% {background-color: rgba(0,0,0,0.5)}
+    100% {background-color: rgba(0,0,0,0.2)}
+}
+
+/*Red button*/
+
+.btn-danger {      
+        font-size: 15px;
+        font-weight: bold;
+		border: none;
+		-webkit-animation-duration: 1s;
+		animation-duration: 1;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		-webkit-animation-name: button-fadeout-danger;
+		animation-name: button-fadeout-danger;
+		
+}
+
+.btn-danger:hover{
+	-webkit-animation-duration: 1s;
+	animation-duration: 1;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: button-fadein-danger;
+	animation-name: button-fadein-danger;
+}
+
+@-webkit-keyframes button-fadein-danger {
+	0% {background-color: rgba(255,0,0,0.2)}
+	100% {background-color: rgba(255,0,0,0.5)}
+         }
+         
+@keyframes button-fadein-danger{
+	0% {background-color: rgba(255,0,0,0.2)}
+    100% {background-color: rgba(255,0,0,0.5)}
+}
+
+@-webkit-keyframes button-fadeout-danger {
+	0% {background-color: rgba(255,0,0,0.5)}
+	100% {background-color: rgba(255,0,0,0.2)}
+         }
+         
+@keyframes button-fadeout-danger{
+	0% {background-color: rgba(255,0,0,0.5)}
+    100% {background-color: rgba(255,0,0,0.2)}
+}
+
+/*Green button*/
+
+.btn-success {      
+        font-size: 15px;
+        font-weight: bold;
+		border: none;
+		-webkit-animation-duration: 1s;
+		animation-duration: 1;
+		-webkit-animation-fill-mode: both;
+		animation-fill-mode: both;
+		-webkit-animation-name: button-fadeout-success;
+		animation-name: button-fadeout-success;
+		
+}
+
+.btn-success:hover{
+	-webkit-animation-duration: 1s;
+	animation-duration: 1;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-name: button-fadein-success;
+	animation-name: button-fadein-success;
+}
+
+@-webkit-keyframes button-fadein-success{
+	0% {background-color: rgba(0,77,26,0.4)}
+	100% {background-color: rgba(0,77,26,0.9)}
+         }
+         
+@keyframes button-fadein-success{
+	0% {background-color: rgba(0,77,26,0.4)}
+    100% {background-color: rgba(0,77,26,0.9)}
+}
+
+@-webkit-keyframes button-fadeout-success {
+	0% {background-color: rgba(0,77,26,0.9)}
+	100% {background-color: rgba(0,77,26,0.4)}
+         }
+         
+@keyframes button-fadeout-success{
+	0% {background-color: rgba(0,77,26,0.9)}
+    100% {background-color: rgba(0,77,26,0.4)}
+}
+
+
+
+
+
+

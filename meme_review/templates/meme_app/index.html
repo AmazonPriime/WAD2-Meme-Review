@@ -5,21 +5,38 @@
 {% endblock %}
 
 {% block body_block%}
-<div class = "form wide-form fade-in">
-		<h1>Welcome</h1>
-</div>
 
 <div class = "form wide-form fade-in">
-		<h1>Meme of the day</h1>
-		{% include 'meme_app/meme_frame.html'%} 
+	<h1>Welcome</h1>
+	
 </div>
 
-<div class = "form wide-form fade-in">
-		<h1>Popular Today</h1>
-		{% include 'meme_app/memeview.html' %}
-</div>
 
 <div class = "form wide-form fade-in">
-			<a href={%url 'about'%}>About</a> &copy2020
+	<h1>Meme of the Day</h1>
+	{% if trending_meme %}
+		<h3>{{trending_meme.title}}</h3>
+		{% include 'meme_app/meme_frame.html' with memes=meme.memes %}
+	{% else %}
+		<strong>Currently no meme of the day.</strong>
+	{% endif %}
 </div>
+
+
+<div class = "form wide-form fade-in">
+	<h1>Popular Today</h1>
+	{% if popular_memes %}
+		{% for meme in popular_memes %}
+			<h3>{{meme.title}}</h3>
+			{% include 'meme_app/memeview.html' with memes=meme.memes %}
+		{% endfor %}
+	{% else %}
+		<strong>Currently no popular memes.</strong>
+	{% endif %}
+</div>
+	
+<div class = "form wide-form fade-in">
+	<a href={%url 'about'%}>About</a> &copy2020
+</div>
+
 {%endblock%}

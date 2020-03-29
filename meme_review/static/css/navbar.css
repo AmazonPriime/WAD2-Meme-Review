@@ -7,14 +7,7 @@
 .main-item{
 	font-size:20px;
 	color:white;
-	text-align: center;
 }
 .main-item:hover{
 	color:grey;
-}
-
-body { padding-top: 70px; }
-
-@media (max-width: 1200px) {
-	body { padding-top: 270px; }
 }

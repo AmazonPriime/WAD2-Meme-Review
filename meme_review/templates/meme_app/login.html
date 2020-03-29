@@ -7,6 +7,12 @@
 {% block body_block%}
 <div class="form fade-in narrow-form">
 	<h2 class="text-center">Log in</h2>
+	{% for message in messages %}
+		<div class="alert alert-danger">
+			<a class="close" href="#" data-dismiss="alert">×</a>
+      {{ message }}
+		</div>
+	{% endfor %}
   <form id='login_form' method='post' action="{% url 'login' %}">
 		{% csrf_token %}
 		<div class="form-group">

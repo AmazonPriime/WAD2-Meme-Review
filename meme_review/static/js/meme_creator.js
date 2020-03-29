@@ -48,9 +48,6 @@ function drawDefaultCanvas(){
 	    ctx.fill();
 	    ctx.stroke();
 	}
-	
-
-	
 }
 
 function start(){

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'meme_app',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,3 +125,11 @@ STATICFILES_DIRS = [STATIC_DIR,]
 STATIC_URL = '/static/'
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mail.yahoo.com' 
+EMAIL_HOST_USER = 'djangomemereviews@yahoo.com'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = 'ijlqdixxsqegmsyg'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

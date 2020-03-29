@@ -8,7 +8,6 @@
 	<div id="subcategories" class="form wide-form fade-in">
 		<h3>{{ category }}</h3>
 		{% if has_memes %}
-			<div class="form wide-form fade-in">
 				{% include 'meme_app/memeview.html' with memes=page %}
 				<div class="pagination">
 				<span class="step-links">
@@ -24,7 +23,6 @@
 						<a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
 					{% endif %}
 			    </span>
-			</div>
 		{% else %}
 			No memes to be found in this category, make one or add one of your own: <a href="{% url 'meme_creator' %}">Meme Creator</a>
 		{% endif %}

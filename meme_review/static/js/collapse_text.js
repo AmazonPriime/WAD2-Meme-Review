@@ -1,8 +1,8 @@
 var collapseButton = document.getElementById("collapseButton");
 var collapseImg = document.getElementById("collapseImg");
 var expandImg = document.getElementById("expandImg");
-expandImg.style.display = "none";//hide by default, one arrow must be visible
-var clicked = true;
+collapseImg.style.display = "none";//hide by default, one arrow must be visible
+var clicked = false;
 collapseButton.addEventListener("click",function(){
 	//do rotation
 	collapseButton.classList.remove("rotate-arrow");

@@ -82,6 +82,16 @@ figure{
 	max-width:40px;
 	max-height:40px;
 }
+.smallLikeIcon{
+	max-width:20px;
+	max-height:20px;
+	
+}
+.likeToDislike{
+	position: relative;
+	top: -50%;
+	transform: translateY(30%);
+}
 
 .mediumUserIcon{
 	max-width:120px;

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
 from meme_app.models import UserProfile, Meme, Category
 
 class DateInput(forms.DateInput):

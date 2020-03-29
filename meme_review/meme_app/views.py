@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpResponse
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from meme_app.models import Meme, UserProfile, Category, Comment, View
@@ -32,7 +33,6 @@ def index(request):
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
-            print('im doin it')
             username = request.POST.get('username')
             password = request.POST.get('password')
             user = authenticate(username = username, password = password)
@@ -40,8 +40,8 @@ def user_login(request):
                 login(request, user)
                 return redirect(reverse('index'))
             else:
-                print(f"Invalid login details: {username}, {password}")
-                return HttpResponse("Invalid login details supplied.")
+                messages.error(request, "Username or password is incorrect")
+                return redirect(reverse('login'))
         else:
             return render(request, 'meme_app/login.html')
     else:

@@ -11,19 +11,19 @@ import datetime
 def populate():
 	categories = ['Nature','Science','Games','Stories','Business']
 	users = [
-	{'username':'Thomas','password':'admin','image':'profile_images/profile1','dob':'2000-11-11','bio':'Looking happy'},
-	{'username':'Selim','password':'admin','image':'profile_images/profile2','dob':'1999-10-10','bio':'Looking into the distance'},
-	{'username':'Amazon','password':'admin','image':'profile_images/profile3','dob':'1998-09-09','bio':'Blue shirt guy'}]
+	{'username':'Thomas','password':'admin','image':'profile_images/profile1.jfif','dob':'2000-11-11','bio':'Looking happy'},
+	{'username':'Selim','password':'admin','image':'profile_images/profile2.jfif','dob':'1999-10-10','bio':'Looking into the distance'},
+	{'username':'AmazonP','password':'admin','image':'profile_images/profile3.jfif','dob':'1998-09-09','bio':'Blue shirt guy'}]
 
 	memes = [
-	{'user':'Thomas','title':'Meme1','picture':'meme_images/meme1','date':'2020-03-11','likes':'20','dislikes':'5','category':'Science','nsfw':'False'},
-	{'user':'Thomas','title':'Meme2','picture':'meme_images/meme2','date':'2020-03-11','likes':'5','dislikes':'200','category':'Business','nsfw':'True'},
-	{'user':'Thomas','title':'Meme3','picture':'meme_images/meme3','date':'2020-03-11','likes':'120','dislikes':'90','category':'Games','nsfw':'False'}]
+	{'user':'Thomas','title':'Meme1','picture':'meme_images/meme1.jpg','date':'2020-03-11','likes':'20','dislikes':'5','category':'Science','nsfw':'False'},
+	{'user':'Thomas','title':'Meme2','picture':'meme_images/meme2.jpg','date':'2020-03-11','likes':'5','dislikes':'200','category':'Business','nsfw':'True'},
+	{'user':'Thomas','title':'Meme3','picture':'meme_images/meme3.jpg','date':'2020-03-11','likes':'120','dislikes':'90','category':'Games','nsfw':'False'}]
 
 	comments = [
 	{'user':'Thomas','title':'Meme1','text':'Text for meme 1','date':'2020-04-04','likes':'1','dislikes':'1'},
 	{'user':'Selim','title':'Meme2','text':'Text for meme 2','date':'2020-05-05','likes':'2','dislikes':'2'},
-	{'user':'Amazon','title':'Meme3','text':'Text for meme 3','date':'2020-06-06','likes':'3','dislikes':'3'}]
+	{'user':'AmazonP','title':'Meme3','text':'Text for meme 3','date':'2020-06-06','likes':'3','dislikes':'3'}]
 
 	def add_cat(cat):
 		c = Category.objects.get_or_create(name=cat)[0]
@@ -70,7 +70,7 @@ def populate():
 		#print(meme ,":meme")
 		instancetitle = Meme.objects.get(title=meme)
 		#print(instancetitle, ":instancetitle")
-		c = add_comment(instanceuser,instancetitle,comment['text'],comment['date'],comment['likes'],comment['dislikes']) 
+		c = add_comment(instanceuser,instancetitle,comment['text'],comment['date'],comment['likes'],comment['dislikes'])
 
 
 if __name__ == '__main__':

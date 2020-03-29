@@ -15,7 +15,7 @@
 	<h1>Meme of the Day</h1>
 	{% if trending_meme %}
 		<h3>{{trending_meme.title}}</h3>
-		{% include 'meme_app/meme_frame.html' %}
+		{% include 'meme_app/meme_frame.html' with memes=meme.memes %}
 	{% else %}
 		<strong>Currently no meme of the day.</strong>
 	{% endif %}

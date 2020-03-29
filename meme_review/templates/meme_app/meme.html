@@ -8,8 +8,7 @@
 
 <div class = "form wide-form fade-in">
 		<h1>{{meme.title}}</h1>
-		{% include 'meme_app/meme_frame.html'%} 
-
+		{% include 'meme_app/meme_frame.html'%}
 </div>
 
 <div class = "form wide-form fade-in">
@@ -44,10 +43,6 @@
 			</form>
 			{% endfor %}
 		</div>
-		
-</div>
 
-<a href={%url 'meme_app:account_home'%}>
-Testing account's home page /TO BE REMOVED/
-</a>
+</div>
 {%endblock%}

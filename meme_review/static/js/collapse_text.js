@@ -1,12 +1,20 @@
 var collapseButton = document.getElementById("collapseButton");
-var expand = "Expand";
-var collapse= "Collapse";
-collapseButton.textContent=expand; //Initially it is not expanded so set text to expand
+var collapseImg = document.getElementById("collapseImg");
+var expandImg = document.getElementById("expandImg");
+expandImg.style.display = "none";//hide by default, one arrow must be visible
+var clicked = true;
 collapseButton.addEventListener("click",function(){
-	if(collapseButton.textContent==collapse){
-		collapseButton.textContent=expand;
+	//do rotation
+	collapseButton.classList.remove("rotate-arrow");
+	void collapseButton.offsetWidth;
+	collapseButton.classList.add("rotate-arrow");
+	//manage which of the images is visible
+	if(clicked==true){
+		collapseImg.style.display = "block";
+		expandImg.style.display = "none";
 	}else{
-		collapseButton.textContent=collapse;
+		expandImg.style.display = "block";
+		collapseImg.style.display = "none";
 	}
-	
+	clicked = !clicked;
 });

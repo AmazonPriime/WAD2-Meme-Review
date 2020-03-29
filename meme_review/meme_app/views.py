@@ -16,7 +16,7 @@ def index(request):
 
     # get a trending meme, random from 5 most liked in past week
     seven_days_ago = datetime.now() - timedelta(days = 7)
-    recent_top_memes = memes.filter(date__range = [seven_days_ago, datetime.now()]).order_by('-likes')[:5]
+    recent_top_memes = memes.filter(date__range = [seven_days_ago, datetime.now()], nsfw = (not restrictor(request.user))).order_by('-likes')[:5]
     if(len(memes)>0):
         context_dict['trending_meme'] = memes[random.randint(0,len(memes) - 1)]
     else:
@@ -88,7 +88,7 @@ def register(request):
 
 def top_memes(request):
     context_dict = {}
-    memes = Meme.objects.all()
+    memes = Meme.objects.all().filter(nsfw = (not restrictor(request.user)))
 
     # gets the top 9 memes of all time
     context_dict['top_memes'] = [{"name": "Top memes", "memes":memes.order_by('-likes')[:9]}]
@@ -104,7 +104,10 @@ def account(request, username):
     except:
         return render(request, '404.html')
 
-    memes = Meme.objects.all().filter(user = user)
+    if request.user.username == username:
+        memes = Meme.objects.all().filter(user = user)
+    else:
+        memes = Meme.objects.all().filter(user = user, nsfw = (not restrictor(request.user)))
     context_dict['memes'] = memes
     context_dict['meme_total'] = len(memes)
     context_dict['likes_total'] = sum([meme.likes for meme in memes])
@@ -114,10 +117,6 @@ def account(request, username):
         if request.method == 'POST':
             profile_form = AccountForm(request.POST)
             if profile_form.is_valid():
-                # profile_form = profile_form.save(commit = False)
-                # if 'picture' in request.FILES:
-                #     profile_form.picture = request.FILES['picture']
-                # profile_form.save()
                 user.bio = request.POST.get('bio')
                 if 'picture' in request.FILES:
                     user.picture = request.FILES['picture']
@@ -141,7 +140,7 @@ def category(request, cat):
         return render(request, '404.html')
 
     # gets memes with a specific category
-    memes = Meme.objects.all().filter(category = cat_obj)
+    memes = Meme.objects.all().filter(category = cat_obj, nsfw = (not restrictor(request.user)))
     paginator = Paginator(memes, 9) # 9 meme per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -195,3 +194,18 @@ def meme_creator(request):
 
 def about(request):
     return render(request,'meme_app/about.html')
+
+
+def restrictor(user):
+    if not user.is_authenticated:
+        return True
+    else:
+        try:
+            user = UserProfile.objects.get(user__username == user.username)
+            age_years = (date.today() - user.dob).days / 365.25
+            if age_years > 18:
+                return False
+            else:
+                return True
+        except:
+            return True

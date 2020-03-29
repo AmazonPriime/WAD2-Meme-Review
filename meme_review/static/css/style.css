@@ -7,11 +7,12 @@ body {
 	margin-top:80px;
 }
 
-
-figure{
+.fixed-size-col{
 	border:1px solid rgba(170,170,170,0.5);
+	width:300px;
+	height:450px;
+	
 }
-
 .center-figure {
 	display: table;
 	margin-right: auto;
@@ -70,8 +71,8 @@ figure{
 }
 
 .smallMeme{
-	max-width:300px;
-	max-height:300px;
+	max-width:280px;
+	max-height:280px;
 }
 .normalMeme{
 	max-width:800px;

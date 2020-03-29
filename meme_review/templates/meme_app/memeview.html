@@ -2,9 +2,8 @@
 
 	<div class = "row">
 	{% for meme in memes %}
-		<div class="column">
+		<div class="col-md-4 fixed-size-col">
 			<figure class = "figure center-figure smallMeme">
-			{% include 'meme_app/meme_frame.html' with memes=meme.memes%}
 				<a href="{% url 'meme' meme.id %}">
 					<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="figure-img img-fluid" alt="PlaceHolder">
 				</a>

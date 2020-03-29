@@ -8,7 +8,7 @@
 
 <div class = "form wide-form fade-in">
 		<h1>{{meme.title}}</h1>
-		{% include 'meme_app/meme_frame.html'%}
+		{% include 'meme_app/meme_frame.html' %}
 </div>
 
 <div class = "form wide-form fade-in">
@@ -28,7 +28,7 @@
 			{% for comment in comments %}
 			<div class = "row">
 				<div class="col-1">
-					<img src="{% if user.picture %}user.picture{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+					<img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
 				</div>
 				<div class="col-11">
 					<div>{{comment.user.name}}</div><div>{{comment.date}}</div>

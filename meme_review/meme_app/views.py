@@ -22,7 +22,7 @@ def index(request):
     if(len(memes)>0):
         context_dict['trending_meme'] = memes[random.randint(0,len(memes) - 1)]
     else:
-        context_dict['trending_meme'] = [] #pls fix this
+        context_dict['trending_meme'] = None
 
     # get memes to store on popular today, top up to 9 memes from today
     yesterday = datetime.now() - timedelta(days = 1)
@@ -108,7 +108,7 @@ def account(request, username):
         user = UserProfile.objects.get(user__username = username)
         context_dict['profile'] = user
     except:
-        return render(request, '404.html')
+        return render(request, '404.html', context_dict)
 
     if request.user.username == username:
         memes = Meme.objects.all().filter(user = user)
@@ -141,13 +141,16 @@ def category(request, cat):
     context_dict['categories'] = Category.objects.all()
     # checks if the category exists
     try:
-        print(cat)
         cat_obj = Category.objects.get(name = cat)
     except:
-        return render(request, '404.html')
+        return render(request, '404.html', context_dict)
 
     # gets memes with a specific category
     memes = Meme.objects.all().filter(category = cat_obj, nsfw = (not restrictor(request.user)))
+    if not memes:
+        context_dict['has_memes'] = False
+    else:
+        context_dict['has_memes'] = True
     paginator = Paginator(memes, 9) # 9 meme per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -176,7 +179,7 @@ def meme(request, id):
             meme.views += 1
             meme.save()
     except:
-        return render(request, '404.html')
+        return render(request, '404.html', context_dict)
     return render(request, 'meme_app/meme.html', context_dict)
 
 

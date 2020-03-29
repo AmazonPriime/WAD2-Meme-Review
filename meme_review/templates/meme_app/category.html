@@ -1,32 +1,33 @@
 {% extends 'meme_app/base.html' %}
 {% load static %}
 {% block title_block %}
-	{{category.name}}
+	{{category}}
 {% endblock %}
 
 {% block body_block%}
-<div id="subcategories" class="form wide-form fade-in">
-
-
-<div class="form wide-form fade-in">
-	<h3>{{category.name}}</h3>
-	{% include 'meme_app/memeview.html' with memes=page %}
-	<div class="pagination">
-	<span class="step-links">
-		{% if page.has_previous %}
-			<a href="?page=1">&laquo; first</a>
-			<a href="?page={{ page.previous_page_number }}">previous</a>
+	<div id="subcategories" class="form wide-form fade-in">
+		<h3>{{ category }}</h3>
+		{% if has_memes %}
+			<div class="form wide-form fade-in">
+				{% include 'meme_app/memeview.html' with memes=page %}
+				<div class="pagination">
+				<span class="step-links">
+					{% if page.has_previous %}
+						<a href="?page=1">&laquo; first</a>
+						<a href="?page={{ page.previous_page_number }}">previous</a>
+					{% endif %}
+					<span class="current">
+						Page {{ page.number }} of {{ page.paginator.num_pages }}.
+					</span>
+					{% if page.has_next %}
+						<a href="?page={{ page.next_page_number }}">next</a>
+						<a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
+					{% endif %}
+			    </span>
+			</div>
+		{% else %}
+			No memes to be found in this category, make one or add one of your own: <a href="{% url 'meme_creator' %}">Meme Creator</a>
 		{% endif %}
-		<span class="current">
-			Page {{ page.number }} of {{ page.paginator.num_pages }}.
-		</span>
-		{% if page.has_next %}
-			<a href="?page={{ page.next_page_number }}">next</a>
-			<a href="?page={{ page.paginator.num_pages }}">last &raquo;</a>
-		{% endif %}
-    </span>
-</div>
-	
-</div>
-	
+	</div>
+
 {%endblock%}

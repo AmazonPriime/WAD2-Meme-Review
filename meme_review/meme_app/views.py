@@ -45,6 +45,11 @@ def user_login(request):
     else:
         return redirect(reverse('index'))
 
+@login_required(login_url='login')
+def user_logout(request):
+    logout(request)
+    return redirect(reverse('index'))
+
 def register(request):
     if not request.user.is_authenticated:
         registered = False
@@ -154,7 +159,7 @@ def meme(request, id):
         return render(request, '404.html')
     return render(request, 'meme_app/meme.html', context_dict)
 
-#@login_required(login_url='login')
+@login_required(login_url='login')
 def meme_creator(request):
     if request.method == 'POST':
         meme_form = MemeForm(request.POST)

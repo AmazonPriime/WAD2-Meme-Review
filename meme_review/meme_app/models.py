@@ -19,7 +19,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
     def __str__(self):
-        return f"{self.name}"
+        return self.name
 
 class Meme(models.Model):
     TITLE_MAX_LENGTH = 64
@@ -29,6 +29,7 @@ class Meme(models.Model):
     date = models.DateField(default=datetime.now)
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
+    views = models.IntegerField(default=0)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     nsfw = models.BooleanField(default=False)
 
@@ -45,3 +46,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.id}: {self.text}"
+
+class View(models.Model):
+    viewer_id = models.CharField(max_length=64)
+    meme = models.ForeignKey(Meme, on_delete=models.CASCADE)

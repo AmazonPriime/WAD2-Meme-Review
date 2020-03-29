@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from meme_app.models import Meme, UserProfile, Category, Comment
+from meme_app.models import Meme, UserProfile, Category, Comment, View
 from meme_app.forms import UserForm, UserProfileForm, MemeForm
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
@@ -136,8 +136,20 @@ def meme(request, id):
     context_dict = {}
     # try and store meme in context dictionary
     try:
-        context_dict['meme'] = Meme.objects.get(id = id)
+        meme = Meme.objects.get(id = id)
+        context_dict['meme'] = meme
         context_dict['comments'] = Comment.objects.all.filter(meme = context_dict['meme'])
+
+        # check user session id and add the view to the meme
+        if not request.session.session_key:
+            request.session.save()
+        key = request.session.session_key
+        views = View.objects.filter(meme = meme, viewer_id = key)
+        if not views:
+            views = View(viewer_id = key, meme = meme)
+            views.save()
+            meme.views += 1
+            meme.save()
     except:
         return render(request, '404.html')
     return render(request, 'meme_app/meme.html', context_dict)

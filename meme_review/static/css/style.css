@@ -3,6 +3,10 @@ body {
 	height:100%;
 	background-image: linear-gradient(#e91e63, #af1dd2);
 }
+.bodycontent{
+	margin-top:80px;
+}
+
 
 figure{
 	border:1px solid rgba(170,170,170,0.5);

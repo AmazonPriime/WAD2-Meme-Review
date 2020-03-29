@@ -35,11 +35,11 @@
 						<a class="nav-link dropdown-toggle main-item" id="categDropDown" href="#" data-toggle="dropdown">
 							Categories
 						</a>
-						{% for category in categories %}
 						<div class="dropdown-menu dropdown-menu-centre" aria-labelledby="categDropDown">
-							<a class="dropdown-item blur-background" href="{% url 'category' category.name %}">{{category.name}}</a>
+							{% for category in categories %}
+								<a class="dropdown-item blur-background" href="{% url 'category' category.name %}">{{category.name}}</a>
+							{% endfor %}
 						</div>
-						{% endfor %}
 					</li>
 					{% if request.user.is_authenticated %}
 						<li class="nav-item col">

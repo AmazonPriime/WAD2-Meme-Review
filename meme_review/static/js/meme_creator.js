@@ -71,6 +71,7 @@ function start(){
 			img.src = reader.result;
 			createMeme(img,topText.value,bottomText.value,fontSize.value, fontName.options[fontName.selectedIndex].value, outlineWidth.value);
 			submitButton.style.visibility="visible";
+			document.getElementById("imageField").value = reader.result;
 		};
 		reader.readAsDataURL(uploadedImage.files[0]);
 	});

@@ -43,11 +43,11 @@ class AccountForm(forms.ModelForm):
 class MemeForm(forms.ModelForm):
     title = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'placeholder' : 'Title'}), required = True)
     category = forms.ModelChoiceField(widget = forms.Select(attrs = {'class' : 'form-control'}), queryset = Category.objects.all(), required = True)
-    nsfw = forms.BooleanField(widget = forms.CheckboxInput(attrs = {'class' : 'form-check-input', 'id' : 'isOver18'}), required=False)
+    nsfw = forms.BooleanField(widget = forms.CheckboxInput(attrs = {'class' : 'form-check-input', 'id' : 'isOver18'}), required = False)
 
     class Meta:
         model = Meme
-        fields = ('title', 'picture', 'category', 'nsfw')
+        fields = ('title', 'category', 'nsfw')
 
 class CommentForm(forms.ModelForm):
     text = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'type' : 'text', 'placeholder' : 'Please enter a comment'}), required = True)

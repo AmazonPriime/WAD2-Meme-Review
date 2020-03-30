@@ -8,8 +8,8 @@ from meme_app.models import Meme, UserProfile, Category, Comment, View, MemeRati
 from meme_app.forms import UserForm, UserProfileForm, MemeForm, AccountForm, CommentForm
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
-import random
-
+from django.conf import settings
+import random, re, base64, os
 
 def index(request):
     context_dict = {}
@@ -189,11 +189,17 @@ def meme(request, id):
 def meme_creator(request):
     if request.method == 'POST':
         meme_form = MemeForm(request.POST)
-
         if meme_form.is_valid():
             meme = meme_form.save(commit = False)
             meme.user = UserProfile.objects.get(user = request.user)
-            meme.picture = request.FILES['picture']
+            meme.save()
+            meme_uri = meme_image(request.POST.get('picture'), meme.id)
+            if meme_uri == -1:
+                print("Image is invalid.")
+                meme.delete()
+                meme.save()
+                return render(request, 'meme_app/memecreator.html', {'meme_form' : MemeForm(), 'categories' : Category.objects.all()})
+            meme.picture = meme_uri
             meme.save()
             return redirect(reverse('meme', args = [meme.id]))
         else:
@@ -203,6 +209,18 @@ def meme_creator(request):
 
     context_dict = {'meme_form' : meme_form, 'categories' : Category.objects.all()}
     return render(request, 'meme_app/memecreator.html', context_dict)
+
+# meme_creator helper function
+def meme_image(dataURL, id):
+    dataUrlPattern = re.compile('data:image/(png|jpeg);base64,(.*)$')
+    image_data = dataUrlPattern.match(dataURL).group(2)
+    if image_data == None or len(image_data) == 0:
+        return -1
+    image_data = base64.b64decode(image_data)
+    filepath = os.path.join(settings.MEDIA_ROOT, 'meme_images', f"{id}.png")
+    with open(filepath, 'wb') as f:
+        f.write(image_data)
+    return os.path.join('meme_images', f"{id}.png")
 
 
 @login_required(login_url='login')

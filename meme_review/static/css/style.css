@@ -71,6 +71,10 @@ body {
 	padding-top: 15px;
 }
 
+.comment-inline h5, .comment-inline p{
+	display: inline-block;
+}
+
 .smallMeme{
 	max-width:280px;
 	max-height:280px;

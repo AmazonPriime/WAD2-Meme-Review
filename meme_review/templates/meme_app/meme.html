@@ -29,28 +29,29 @@
 			<p id="regPageText">To Like or Dislike a meme please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
 		{% endif %}
 		<hr>
-		<div>
+		<ul class="list-unstyled">
 			{% for comment in comments %}
-			<div class = "row">
-				<div class="col-2">
-					<a href={%url 'account' comment.user.user.username %}><div>{{comment.user.user.username}}</div>
-					<img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder"></a>
-					<div>{{comment.date}}</div>
-				</div>
-				<div class="col-10 comment-padding">
-					<p>{{comment.text}}</p>
-					{% if request.user.is_authenticated %}
-					<div class="form-group ">
-						<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1">Like: {{comment.likes}}</a>
-						<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1">Dislike: {{comment.dislikes}}</a>
+				<li class="media">
+					<a href={%url 'account' comment.user.user.username %}>
+						<img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon mr-3" alt="PlaceHolder">
+					</a>
+					<div class="media-body">
+						<div class="comment-inline">
+							<h5 class="mt-10"><a href={%url 'account' comment.user.user.username %}>{{comment.user.user.username}}</a></h5>
+							<p id="regPageText">{{comment.date}}</p>
+						</div>
+						<p>{{comment.text}}</p>
+						{% if request.user.is_authenticated %}
+						<div class="form-group ">
+							<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"> :{{comment.likes}}</a>
+							<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike">: {{comment.dislikes}}</a>
+						</div>
+						{% endif %}
 					</div>
-					{% endif %}
-				</div>
-			</div><hr>
-
-
+				</li>
+			<hr>
 			{% endfor %}
-		</div>
+		</ul>
 
 </div>
 {%endblock%}

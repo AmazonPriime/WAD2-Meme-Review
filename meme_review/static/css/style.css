@@ -99,3 +99,23 @@ body {
 	max-width:120px;
 	max-height:120px;
 }
+
+.card{
+	background-color:rgba(150,150,150,0.3);
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+@media (min-width: 630px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+@media (min-width: 950px) {
+    .card-columns {
+        column-count: 3;
+    }
+}

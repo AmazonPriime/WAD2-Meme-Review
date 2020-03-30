@@ -1,19 +1,21 @@
 {% load static %}
 
-	<div class = "row">
+	<div class = "card-columns">
 	{% for meme in memes %}
-		<div class="column">
-			<figure class = "figure center-figure smallMeme">
-			{% include 'meme_app/meme_frame.html' with memes=meme.memes%}
-				<a href={% url 'meme' 0 %}>
-					<img src="meme.picture" class="figure-img img-fluid" alt="PlaceHolder">
-				</a>
-				<a href="#">
-					<figcaption class="figure-caption text-center">{{meme.user.name}}<br/>
-					<img src="{% if user.picture %}user.picture{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</a>
-				</br>Likes: {{meme.likes}}</figcaption>
-			</figure>
+		<div class="card trans-gray-background">
+			<a href="{% url 'meme' meme.id %}">
+				<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="figure-img img-fluid center-figure" alt="PlaceHolder">
+			</a>
+			
+			<div class="card-body">
+			<a href="{% url 'account' meme.user.user.username %}">
+				<p class="figure-caption text-center">{{meme.user.user.username}}<br/>
+					<img src="{% if meme.user.picture %}{{ MEDIA_URL }}{{ meme.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+				</p>
+			</a>
+			<div class="text-center">Likes: {{meme.likes}}</div>
+			
+			</div>
 		</div>
 	{% endfor %}
 	</div>

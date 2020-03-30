@@ -9,9 +9,9 @@
 	{% if registered %}
 		<div class="text-center lead">
 			Thanks for registering! <br>
-			You will be redirected in 3s, if it doesn't automatically redirect you then click <a href="{% url 'index' %}">here</a>
+			You will be redirected in 3s, if it doesn't automatically redirect you then click <a href="{% url 'login' %}">here</a>
 			<script>
-				window.setTimeout(function () { location.href = "{% url 'index' %}"; }, 3000);
+				window.setTimeout(function () { location.href = "{% url 'login' %}"; }, 3000);
 			</script>
 		</div>
 	{% else %}

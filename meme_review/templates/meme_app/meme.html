@@ -8,46 +8,50 @@
 
 <div class = "form wide-form fade-in">
 		<h1>{{meme.title}}</h1>
-		{% include 'meme_app/meme_frame.html'%} 
-
+		{% include 'meme_app/meme_frame.html' %}
 </div>
 
 <div class = "form wide-form fade-in">
 		<h3>Comments</h3>
-		<form>
-			<div class="form-group row">
-				<div class="col">
-					<input class="form-control" type="text" placeholder="Please enter a comment">
-				</div>
-				<div class="col">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-			</div>
-		</form>
-		<hr>
-		<div>
-			{% for comment in comments %}
-			<div class = "row">
-				<div class="col-1">
-					<img src="{% if user.picture %}user.picture{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
-				</div>
-				<div class="col-11">
-					<div>{{comment.user.name}}</div><div>{{comment.date}}</div>
-				</div>
-			</div>
-			<p>{{comment.text}}</p>
-			<form>
-					<div class="form-group ">
-						<button class="btn btn-primary">Like: {{comment.likes}}</button>
-						<button class="btn btn-danger">Dislike: {{comment.dislikes}}</button>
+		{% if request.user.is_authenticated %}
+			<form id='comment_form' method='post' action="{% url 'comment' meme.id %}">
+				{% csrf_token %}
+				<div class="form-group row">
+					<div class="col">
+						{{ comment_form.text }}
 					</div>
+					<div class="col">
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</div>
+				</div>
 			</form>
+		{% else %}
+			<p id="regPageText">To Like or Dislike a meme please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
+		{% endif %}
+		<hr>
+		<ul class="list-unstyled">
+			{% for comment in comments %}
+				<li class="media">
+					<a href={%url 'account' comment.user.user.username %}>
+						<img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon mr-3" alt="PlaceHolder">
+					</a>
+					<div class="media-body">
+						<div class="comment-inline">
+							<h5 class="mt-10"><a href={%url 'account' comment.user.user.username %}>{{comment.user.user.username}}</a></h5>
+							<p id="regPageText">{{comment.date}}</p>
+						</div>
+						<p>{{comment.text}}</p>
+						{% if request.user.is_authenticated %}
+						<div class="form-group ">
+							<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"> :{{comment.likes}}</a>
+							<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike">: {{comment.dislikes}}</a>
+						</div>
+						{% endif %}
+					</div>
+				</li>
+			<hr>
 			{% endfor %}
-		</div>
-		
-</div>
+		</ul>
 
-<a href={%url 'meme_app:account_home'%}>
-Testing account's home page /TO BE REMOVED/
-</a>
+</div>
 {%endblock%}

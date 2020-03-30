@@ -6,7 +6,7 @@ django.setup()
 from meme_app.models import UserProfile,Category,Meme,Comment,User
 import datetime
 
- 
+
 
 def populate():
 	#Clearing the script each time its run
@@ -23,26 +23,26 @@ def populate():
 
 
 
-	categories = ['Nature','Science','Games','Stories','Business','Celebrities','Design','Food and drink','Art','Gardening']
+	categories = ['Nature','Science','Games','Stories','Business','Celebrities','Design','Food and drink','Art','Gardening','Technology'] 
 	users = [
-	{'username':'Thomas','password':'admin','image':'profile_images/profile1','dob':'2000-11-11','bio':'Looking happy'},
-	{'username':'Selim','password':'admin','image':'profile_images/me','dob':'1789-10-10','bio':'Looking into the distance'},
-	{'username':'Amazon','password':'admin','image':'profile_images/profile3','dob':'1998-09-19','bio':'Blue shirt guy'},
-	{'username':'Luke','password':'admin','image':'profile_images/profile2','dob':'1992-08-08','bio':'Looking happy'},
-	{'username':'Matthew','password':'admin','image':'profile_images/profile4','dob':'1968-07-21','bio':'Person with umbrella'},
-	{'username':'Adam','password':'admin','image':'profile_images/profile5','dob':'1984-06-27','bio':'Rain jacket guy'},
-	{'username':'Lucy','password':'admin','image':'profile_images/profile6','dob':'1973-05-05','bio':'Curly haired with beard guy'},
-	{'username':'Stephen','password':'admin','image':'profile_images/profile6','dob':'1961-04-14','bio':'Blue jacket girl'},
+	{'username':'Thomas','password':'admin','image':'profile_images/profile1.jfif','dob':'2000-11-11','bio':'Looking happy'},
+	{'username':'Selim','password':'admin','image':'profile_images/me.jpg','dob':'1789-10-10','bio':'Looking into the distance'},
+	{'username':'Amazon','password':'admin','image':'profile_images/profile3.jfif','dob':'1998-09-19','bio':'Blue shirt guy'},
+	{'username':'Luke','password':'admin','image':'profile_images/profile2.jfif','dob':'1992-08-08','bio':'Looking happy'},
+	{'username':'Matthew','password':'admin','image':'profile_images/profile4.jfif','dob':'1968-07-21','bio':'Person with umbrella'},
+	{'username':'Adam','password':'admin','image':'profile_images/profile5.jfif','dob':'1984-06-27','bio':'Rain jacket guy'},
+	{'username':'Lucy','password':'admin','image':'profile_images/profile6.jfif','dob':'1973-05-05','bio':'Curly haired with beard guy'},
+	{'username':'Stephen','password':'admin','image':'profile_images/profile6.jfif','dob':'1961-04-14','bio':'Blue jacket girl'},
 	]
 
 	memes = [
-	{'user':'Thomas','title':'Meme1','picture':'meme_images/onlinelectures','date':'2020-03-24','likes':'20','dislikes':'5','views':'500','category':'Science','nsfw':'False'},
-	{'user':'Adam','title':'Meme2','picture':'meme_images/goingoutside','date':'2020-03-25','likes':'99999999','dislikes':'200','views':'349','category':'Business','nsfw':'True'},
-	{'user':'Adam','title':'Meme3','picture':'meme_images/god','date':'2020-03-26','likes':'120','dislikes':'90','views':'487','category':'Games','nsfw':'False'},
-	{'user':'Adam','title':'Meme4','picture':'meme_images/dogmeme','date':'2020-03-27','likes':'20','dislikes':'21','views':'604','category':'Gardening','nsfw':'True'},
-	{'user':'Selim','title':'Meme5','picture':'meme_images/avacado','date':'2020-03-30','likes':'12','dislikes':'40','views':'215','category':'Art','nsfw':'False'},
-	{'user':'Lucy','title':'Meme6','picture':'meme_images/meme1','date':'2020-03-30','likes':'98','dislikes':'23','views':'361','category':'Food and drink','nsfw':'False'},
-	{'user':'Stephen','title':'Meme7','picture':'meme_images/meme2','date':'2020-03-30','likes':'88','dislikes':'57','views':'5766','category':'Design','nsfw':'False'},]
+	{'user':'Thomas','title':'Meme1','picture':'meme_images/onlinelectures.jpg','date':'2020-03-24','likes':'20','dislikes':'5','views':'500','category':'Science','nsfw':'False'},
+	{'user':'Adam','title':'Meme2','picture':'meme_images/goingoutside.jpg','date':'2020-03-25','likes':'99999999','dislikes':'200','views':'349','category':'Business','nsfw':'True'},
+	{'user':'Adam','title':'Meme3','picture':'meme_images/god.jpg','date':'2020-03-26','likes':'120','dislikes':'90','views':'487','category':'Games','nsfw':'False'},
+	{'user':'Adam','title':'Meme4','picture':'meme_images/dogmeme.jpg','date':'2020-03-27','likes':'20','dislikes':'21','views':'604','category':'Gardening','nsfw':'True'},
+	{'user':'Selim','title':'Meme5','picture':'meme_images/avacado.jpg','date':'2020-03-30','likes':'12','dislikes':'40','views':'215','category':'Art','nsfw':'False'},
+	{'user':'Lucy','title':'Meme6','picture':'meme_images/meme1.jpg','date':'2020-03-30','likes':'98','dislikes':'23','views':'361','category':'Food and drink','nsfw':'False'},
+	{'user':'Stephen','title':'Meme7','picture':'meme_images/meme2.jpg','date':'2020-03-30','likes':'88','dislikes':'57','views':'5766','category':'Design','nsfw':'False'},]
 
 	comments = [
 	{'user':'Matthew','title':'Meme1','text':'that kid who rickrolled everyone','date':'2020-03-24','likes':'3','dislikes':'2'},
@@ -104,7 +104,7 @@ def populate():
 		instanceuser = UserProfile.objects.get(user__username=username)
 		meme = comment['title']
 		instancetitle = Meme.objects.get(title=meme)
-		c = add_comment(instanceuser,instancetitle,comment['text'],comment['date'],comment['likes'],comment['dislikes']) 
+		c = add_comment(instanceuser,instancetitle,comment['text'],comment['date'],comment['likes'],comment['dislikes'])
 
 
 if __name__ == '__main__':

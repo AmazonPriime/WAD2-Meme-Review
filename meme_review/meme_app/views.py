@@ -4,8 +4,8 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from meme_app.models import Meme, UserProfile, Category, Comment, View
-from meme_app.forms import UserForm, UserProfileForm, MemeForm, AccountForm
+from meme_app.models import Meme, UserProfile, Category, Comment, View, MemeRating, CommentRating
+from meme_app.forms import UserForm, UserProfileForm, MemeForm, AccountForm, CommentForm
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
 import random
@@ -151,7 +151,7 @@ def category(request, cat):
         context_dict['has_memes'] = False
     else:
         context_dict['has_memes'] = True
-    paginator = Paginator(memes, 9) # 9 meme per page
+    paginator = Paginator(memes, 1) # 9 meme per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context_dict['page'] = page_obj
@@ -166,8 +166,7 @@ def meme(request, id):
     try:
         meme = Meme.objects.get(id = id)
         context_dict['meme'] = meme
-        context_dict['comments'] = Comment.objects.all.filter(meme = context_dict['meme'])
-
+        context_dict['comments'] = Comment.objects.all().filter(meme = context_dict['meme'])
         # check user session id and add the view to the meme
         if not request.session.session_key:
             request.session.save()
@@ -180,6 +179,9 @@ def meme(request, id):
             meme.save()
     except:
         return render(request, '404.html', context_dict)
+    if request.user.is_authenticated:
+        context_dict['comment_form'] = CommentForm()
+
     return render(request, 'meme_app/meme.html', context_dict)
 
 
@@ -203,6 +205,27 @@ def meme_creator(request):
     return render(request, 'meme_app/memecreator.html', context_dict)
 
 
+@login_required(login_url='login')
+def comment(request, id):
+    try:
+        meme = Meme.objects.get(id = id)
+    except:
+        return render(request, '404.html', {'categories' : Category.objects.all()})
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit = False)
+            comment.user = UserProfile.objects.get(user = request.user)
+            comment.meme = meme
+            comment.save()
+        else:
+            print(comment_form.errors)
+
+    return redirect(reverse('meme', args = [meme.id]))
+
+
 def about(request):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
@@ -211,6 +234,62 @@ def about(request):
 
 def unsupported(request):
     return render(request,'unsupported.html')
+
+
+@login_required(login_url='login')
+def rate(request, id, type):
+    context_dict = {}
+    context_dict['categories'] = Category.objects.all()
+
+    try:
+        value = int(request.GET.get('value'))
+        user = UserProfile.objects.get(user = request.user)
+        if type == "meme":
+            meme = Meme.objects.get(id = id)
+            rating = MemeRating.objects.get_or_create(meme = meme, user = user)[0]
+            do_rating(meme, rating, value)
+            meme.save()
+            rating.save()
+            return redirect(reverse('meme', args = [meme.id]))
+
+        elif type == "comment":
+            comment = Comment.objects.get(id = id)
+            rating = CommentRating.objects.get_or_create(comment = comment, user = user)[0]
+            do_rating(comment, rating, value)
+            comment.save()
+            rating.save()
+            return redirect(reverse('meme', args = [comment.meme.id]))
+
+        else:
+            return render(request, '404.html', context_dict)
+
+    except:
+        return render(request, '404.html', context_dict)
+
+# helper methods for the rate view
+def do_rating(model, rating, value):
+    if rating.value == 0:
+        # no prev rating
+        rating.value = value
+        if value == 1:
+            model.likes += 1
+        elif value == -1:
+            model.dislikes += 1
+
+    elif rating.value == 1:
+        # prev rating was a like
+        if value == -1:
+            rating.value = value
+            model.likes -= 1
+            model.dislikes += 1
+
+    elif rating.value == -1:
+        # prev rating was a dislike
+        if value == 1:
+            rating.value = value
+            model.likes += 1
+            model.dislikes -= 1
+
 
 def restrictor(user):
     if not user.is_authenticated:

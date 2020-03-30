@@ -7,11 +7,9 @@ body {
 	margin-top:80px;
 }
 
-
-figure{
+.grey-border{
 	border:1px solid rgba(170,170,170,0.5);
 }
-
 .center-figure {
 	display: table;
 	margin-right: auto;
@@ -45,7 +43,7 @@ figure{
 	width: 100%;
 }
 #regPageText{
-	color:gray;
+	color:#606060;
 	margin: 0;
 }
 
@@ -69,9 +67,17 @@ figure{
     100% {opacity: 1;}
 }
 
+.comment-padding{
+	padding-top: 15px;
+}
+
+.comment-inline h5, .comment-inline p{
+	display: inline-block;
+}
+
 .smallMeme{
-	max-width:300px;
-	max-height:300px;
+	max-width:280px;
+	max-height:280px;
 }
 .normalMeme{
 	max-width:800px;
@@ -79,11 +85,43 @@ figure{
 }
 
 .smallUserIcon{
-	max-width:40px;
-	max-height:40px;
+	width:80px;
+	height:80px;
+}
+.smallLikeIcon{
+	max-width:20px;
+	max-height:20px;
+	
+}
+.likeToDislike{
+	position: relative;
+	top: -50%;
+	transform: translateY(30%);
 }
 
 .mediumUserIcon{
 	max-width:120px;
 	max-height:120px;
+}
+
+
+
+.trans-gray-background{
+	background-color:rgba(150,150,150,0.3);
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+@media (min-width: 630px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+@media (min-width: 950px) {
+    .card-columns {
+        column-count: 3;
+    }
 }

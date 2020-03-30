@@ -22,13 +22,14 @@
         {% csrf_token %}
         <div class="row">
           <div class="col">
+			<label for="changeAccountImage" id="regPageText">Upload new profile picture</label><br>
             <img src="{% if img_url %}{{ MEDIA_URL }}{{ img_url }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid mediumUserIcon" alt="PlaceHolder">
             <div class="form-group">
-              <label for="changeAccountImage">Upload new image</label>
   						{{ profile_form.picture }}
             </div>
           </div>
           <div class="col">
+			<p id="regPageText">Short biography</p>
             {{ profile_form.bio }}
           </div>
         </div>

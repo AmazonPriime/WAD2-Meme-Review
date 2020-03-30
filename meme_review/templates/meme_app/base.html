@@ -14,22 +14,19 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/arrowrotate.css' %}">
+		
+			<script>//Detects browser if IE unsupported
+			var agent = window.navigator.userAgent;
+			var IExplorer = agent.indexOf('MSIE');
+			var IE11 = agent.indexOf('Trident/');
+			if(IExplorer>=0 || IE11>=0){
+				location.href = "{% url 'unsupported' %}";
+			}
+			</script>
+
 	</head>
 
 	<body>
-		<script>//Detects browser if IE unsupported
-		var agent = window.navigator.userAgent;
-		var IExplorer = agent.indexOf('MSIE');
-		var IE11 = agent.indexOf('Trident/');
-		if(IExplorer>=0 || IE11>=0){
-			location.href = "{% url 'unsupported' %}";
-		}
-
-		
-		</script>
-
-
-		<script src="{% static 'js/browser_detector.js' %}"></script> <!--IE cannot show the website-> if browser is IE redirect-->
 		<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
 			<a class="navbar-toggler main-item" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" id="collapseButton"><img src="{% static 'images/uparrow.png' %}" id="collapseImg" class="figure-img img-fluid smallIcon" alt="Collapse"><img src="{% static 'images/downarrow.png' %}" id="expandImg" class="figure-img img-fluid smallIcon" alt="Expand"></a>
 			<div class = "collapse navbar-collapse"id="navbarNavDropdown">

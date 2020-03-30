@@ -2,7 +2,7 @@
 
 	<div class = "row">
 	{% for meme in memes %}
-		<div class="col-md-4 fixed-size-col">
+		<div class="col-md-4 grey-border">
 			<figure class = "figure center-figure smallMeme">
 				<a href="{% url 'meme' meme.id %}">
 					<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="figure-img img-fluid" alt="PlaceHolder">
@@ -12,7 +12,7 @@
 						<img src="{% if meme.user.picture %}{{ MEDIA_URL }}{{ meme.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
 					</figcaption>
 				</a>
-				<br>Likes: {{meme.likes}}
+				<div>Likes: {{meme.likes}}</div>
 			</figure>
 		</div>
 	{% endfor %}

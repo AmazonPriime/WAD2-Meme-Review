@@ -17,6 +17,17 @@
 	</head>
 
 	<body>
+		<script>//Detects browser if IE unsupported
+		var agent = window.navigator.userAgent;
+		var IExplorer = agent.indexOf('MSIE');
+		var IE11 = agent.indexOf('Trident/');
+		if(IExplorer>=0 || IE11>=0){
+			location.href = "{% url 'unsupported' %}";
+		}
+
+		
+		</script>
+
 
 		<script src="{% static 'js/browser_detector.js' %}"></script> <!--IE cannot show the website-> if browser is IE redirect-->
 		<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
@@ -63,7 +74,7 @@
 			{% block body_block %}
 			{% endblock %}
 		</div>
-<div id="test"></div>
+		
 		<!-- Collapse Button JS -->
 		<script src="{% static 'js/collapse_text.js' %}"></script>
 		<!-- Bootstrap JS -->

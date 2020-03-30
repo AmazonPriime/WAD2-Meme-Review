@@ -11,8 +11,12 @@
 	</a>
 	<br>Likes: {{meme.likes}}
 	<br>Dislikes: {{meme.dislikes}}
+	{% if request.user.is_authenticated %}
 	<div class="form-group ">
 		<a class="btn btn-success" title="Like" href="{% url 'rate' type='meme' id=meme.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"></a>
 		<a class="btn btn-danger" title="Dislike" href="{% url 'rate' type='meme' id=meme.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"></a>
 	</div>
+	{%else%}
+		<p id="regPageText">To Like or Dislike a meme please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
+	{%endif%}
 </figure>

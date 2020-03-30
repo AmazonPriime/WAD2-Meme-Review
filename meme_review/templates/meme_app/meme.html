@@ -14,7 +14,7 @@
 <div class = "form wide-form fade-in">
 		<h3>Comments</h3>
 		{% if request.user.is_authenticated %}
-			<form id='comment_form' method='post' action="{% url 'comment' %}">
+			<form id='comment_form' method='post' action="#">
 				<div class="form-group row">
 					<div class="col">
 						{{ comment_form.text }}
@@ -25,24 +25,27 @@
 				</div>
 			</form>
 		{% else %}
-			Please <a href="{% url 'login' %}">login</a> to leave your own comment!
+			<p id="regPageText">To Like or Dislike a meme please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
 		{% endif %}
 		<hr>
 		<div>
 			{% for comment in comments %}
 			<div class = "row">
 				<div class="col-1">
-					<img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+					<a href={%url 'account' comment.user.user.username %}><img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder"></a>
 				</div>
 				<div class="col-11">
-					<div>{{comment.user.name}}</div><div>{{comment.date}}</div>
+					<a href={%url 'account' comment.user.user.username %}><div>{{comment.user.user.username}}</div></a>
+					<div>{{comment.date}}</div>
 				</div>
 			</div>
 			<p>{{comment.text}}</p>
+			{% if request.user.is_authenticated %}
 			<div class="form-group ">
 				<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1">Like: {{comment.likes}}</a>
 				<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1">Dislike: {{comment.dislikes}}</a>
 			</div>
+			{% endif %}
 			{% endfor %}
 		</div>
 

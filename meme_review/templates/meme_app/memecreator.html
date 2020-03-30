@@ -7,6 +7,7 @@
 {% block body_block%}
 	<div class = "form wide-form fade-in">
 		<h1>Meme Creator</h1>
+		<hr>
 		<form id='meme_form' method='post' action="{% url 'meme_creator' %}">
 		{% csrf_token %}
 			<div class="form-group">

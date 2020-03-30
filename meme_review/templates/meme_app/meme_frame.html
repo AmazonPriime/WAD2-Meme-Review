@@ -9,10 +9,12 @@
 			<img src="{% if meme.user.picture %}{{ MEDIA_URL }}{{ meme.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
 		</figcaption>
 	</a>
+	<div class="form-group text-center">
 	<br>Likes: {{meme.likes}}
 	<br>Dislikes: {{meme.dislikes}}
+	</div>
 	{% if request.user.is_authenticated %}
-	<div class="form-group ">
+	<div class="form-group text-center">
 		<a class="btn btn-success" title="Like" href="{% url 'rate' type='meme' id=meme.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"></a>
 		<a class="btn btn-danger" title="Dislike" href="{% url 'rate' type='meme' id=meme.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"></a>
 	</div>

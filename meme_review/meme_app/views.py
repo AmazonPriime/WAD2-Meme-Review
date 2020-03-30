@@ -96,7 +96,11 @@ def top_memes(request):
     context_dict['categories'] = Category.objects.all()
 
     # gets the top 9 memes of all time
-    context_dict['top_memes'] = [{"name": "Top memes", "memes":memes.order_by('-likes')[:9]}]
+    context_dict['top_memes'] = {'Popular Memes' : memes.order_by('-likes')[:9]}
+
+    # get the top 9 memes from each category
+    for category in context_dict['categories']:
+        context_dict['top_memes'][category.name] = [meme for meme in memes.filter(category = category).order_by('-likes')[:9]]
 
     return render(request, 'meme_app/topmemes.html', context_dict)
 

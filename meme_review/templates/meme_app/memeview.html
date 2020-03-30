@@ -1,22 +1,25 @@
 {% load static %}
 
-
-
-<h3>{{name}}</h3>
-
+<h3>
+	{% if name != 'Popular Memes' %}
+		{{ name }}
+		<a href="{% url 'category' name %}"><i class="fas fa-link"></i></a>
+	{% else %}
+		{{ name }}
+	{% endif %}
+</h3>
 <div class = "row">
-{% for meme in memes %}
-
-	<div class="col-md-4 text-center" style="padding:0.5em;">
-		<a href="{% url 'meme' meme.id %}">
-			<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="img-fluid" style="border:1px solid black;min-height:250px;max-height:250px;" alt="Meme Image">
-		</a>
-		<a href="{% url 'account' meme.user.user.username %}">
-				<p class="figure-caption text-center">{{meme.user.user.username}}</br>
-				<img src="{% if meme.user.picture %}{{ MEDIA_URL }}{{ meme.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder"></p>
+	{% for meme in memes %}
+		<div class="col-md-4 text-center" style="padding:0.5em;">
+			<a href="{% url 'meme' meme.id %}">
+				<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="img-fluid" style="border:1px solid black;min-height:250px;max-height:250px;" alt="Meme Image">
 			</a>
-			<div class="text-center"><img src="{% static 'images/like.png'%}" class="smallLikeIcon"> {{meme.likes}}  | {{ meme.dislikes }} <img src="{% static 'images/dislike.png'%}" class="smallLikeIcon"> </div>
-		<hr style="border-width:2px">
-	</div>
-{% endfor %}
+			<a href="{% url 'account' meme.user.user.username %}">
+					<p class="figure-caption text-center">{{meme.user.user.username}}<br>
+					<img src="{% if meme.user.picture %}{{ MEDIA_URL }}{{ meme.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder"></p>
+				</a>
+				<div class="text-center"><img src="{% static 'images/like.png'%}" class="smallLikeIcon"> {{meme.likes}}  | {{ meme.dislikes }} <img src="{% static 'images/dislike.png'%}" class="smallLikeIcon"> </div>
+			<hr>
+		</div>
+	{% endfor %}
 </div>

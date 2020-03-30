@@ -25,8 +25,9 @@
 
 
 <div class = "form wide-form fade-in">
+	<h3>Popular memes</h3>
 	{% if popular_memes %}
-		{% include 'meme_app/memeview.html' with memes=popular_memes name=popular %}
+		{% include 'meme_app/memeview.html' with memes=popular_memes%}
 	{% else %}
 		<strong>Currently no popular memes.</strong>
 	{% endif %}

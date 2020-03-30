@@ -9,7 +9,7 @@
 		<h3>{{ category }}</h3>
 		{% if has_memes %}
 				{% include 'meme_app/memeview.html' with memes=page %}
-				<div class="btn-group d-flex" role="group">
+				<div class="btn-group d-flex w-50 text-center center-div" role="group">
 					{% if page.has_previous %}
 						<a class="btn btn-primary" href="?page=1">first</a>
 						<a class="btn btn-primary" href="?page={{ page.previous_page_number }}">previous</a>

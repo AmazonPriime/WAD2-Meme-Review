@@ -6,6 +6,7 @@
 
 {% block body_block%}
 	<div id="subcategories" class="form wide-form fade-in">
+		<h3>{{category}}</h3>
 		{% if has_memes %}
 				{% include 'meme_app/memeview.html' with memes=page name=category %}
 				<div class="btn-group d-flex w-50 text-center center-div" role="group">

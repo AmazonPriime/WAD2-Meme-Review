@@ -1,13 +1,5 @@
 {% load static %}
 
-<h3>
-	{% if name != 'Popular Memes' %}
-		{{ name }}
-		<a href="{% url 'category' name %}"><i class="fas fa-link"></i></a>
-	{% else %}
-		{{ name }}
-	{% endif %}
-</h3>
 <div class = "row">
 	{% for meme in memes %}
 		<div class="col-md-4 text-center" style="padding:0.5em;">

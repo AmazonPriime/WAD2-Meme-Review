@@ -46,7 +46,7 @@
 							<a class="btn btn-primary" title="Like comment" href="{% url 'rate' type='comment' id=comment.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"> :{{comment.likes}}</a>
 							<a class="btn btn-danger" title="Dislike comment" href="{% url 'rate' type='comment' id=comment.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"> : {{comment.dislikes}}</a>
 						</div>
-						{else}
+						{% else %}
 							<p><img src="{% static 'images/like.png'%}" class="smallLikeIcon"> {{comment.likes}}  | {{ comment.dislikes }} <img src="{% static 'images/dislike.png'%}" class="smallLikeIcon"></p>
 						{% endif %}
 					</div>

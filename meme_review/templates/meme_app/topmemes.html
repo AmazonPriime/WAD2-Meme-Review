@@ -10,7 +10,13 @@
 	{% for title, memes in top_memes.items %}
 		{% if memes %}
 			<div id="trending" class="form wide-form fade-in">
-				{% include 'meme_app/memeview.html' with memes=memes name=title%}
+			<h3>
+				{{ title }}
+				{% if title != 'Popular Memes' %}
+					<a href="{% url 'category' title %}"><i class="fas fa-link"></i></a>
+				{% endif %}
+			</h3>
+				{% include 'meme_app/memeview.html' with memes=memes%}
 			</div>
 		{% endif %}
 	{% endfor %}

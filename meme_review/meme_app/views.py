@@ -151,7 +151,7 @@ def category(request, cat):
         context_dict['has_memes'] = False
     else:
         context_dict['has_memes'] = True
-    paginator = Paginator(memes, 1) # 9 meme per page
+    paginator = Paginator(memes, 9) # 9 meme per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context_dict['page'] = page_obj

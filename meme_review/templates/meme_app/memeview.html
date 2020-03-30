@@ -1,6 +1,12 @@
 {% load static %}
 
-<h3>{{name}}</h3>
+
+
+<h3>{{name}}</h3> <a class="navbar-toggler main-item" type="button" data-toggle="collapse" role = "button" data-target="#{{name}}" id="{{name}}Button"><img src="{% static 'images/uparrow.png' %}" id="{{name}}Collapse" class="figure-img img-fluid smallIcon" alt="Collapse"><img src="{% static 'images/downarrow.png' %}" id="{{name}}Expand" class="figure-img img-fluid smallIcon" alt="Expand"></a>
+
+
+<div class = "collapse" id="{{name}}">
+
 <div class = "row">
 {% for meme in memes %}
 
@@ -17,3 +23,7 @@
 	</div>
 {% endfor %}
 </div>
+</div>
+
+<div id="memeName">{{name}}</div>
+<script src="{% static 'js/collapse_cat_text.js' %}"></script>

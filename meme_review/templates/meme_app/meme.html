@@ -31,21 +31,23 @@
 		<div>
 			{% for comment in comments %}
 			<div class = "row">
-				<div class="col-1">
-					<a href={%url 'account' comment.user.user.username %}><img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder"></a>
-				</div>
-				<div class="col-11">
-					<a href={%url 'account' comment.user.user.username %}><div>{{comment.user.user.username}}</div></a>
+				<div class="col-2">
+					<a href={%url 'account' comment.user.user.username %}><div>{{comment.user.user.username}}</div>
+					<img src="{% if comment.user.picture %}{{ MEDIA_URL }}{{ comment.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder"></a>
 					<div>{{comment.date}}</div>
 				</div>
-			</div>
-			<p>{{comment.text}}</p>
-			{% if request.user.is_authenticated %}
-			<div class="form-group ">
-				<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1">Like: {{comment.likes}}</a>
-				<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1">Dislike: {{comment.dislikes}}</a>
-			</div>
-			{% endif %}
+				<div class="col-10 comment-padding">
+					<p>{{comment.text}}</p>
+					{% if request.user.is_authenticated %}
+					<div class="form-group ">
+						<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1">Like: {{comment.likes}}</a>
+						<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1">Dislike: {{comment.dislikes}}</a>
+					</div>
+					{% endif %}
+				</div>
+			</div><hr>
+			
+			
 			{% endfor %}
 		</div>
 

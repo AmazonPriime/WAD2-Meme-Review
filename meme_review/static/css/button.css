@@ -4,9 +4,11 @@
         
 }
 
-
-.btn-primary {      
-		background-color: rgba(0,0,0,0.2)
+.btn-primary, btn-primary[disabled], btn-primary:disabled{
+	background-color: rgba(0,0,0,0.2);
+}
+.btn-primary, btn-primary[disabled] {      
+		
         font-size: 15px;
         font-weight: bold;
 		border: none;

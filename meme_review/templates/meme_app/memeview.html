@@ -2,7 +2,7 @@
 
 	<div class = "card-columns">
 	{% for meme in memes %}
-		<div class="card">
+		<div class="card trans-gray-background">
 			<a href="{% url 'meme' meme.id %}">
 				<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="figure-img img-fluid center-figure" alt="PlaceHolder">
 			</a>

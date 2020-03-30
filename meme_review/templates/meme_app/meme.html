@@ -26,7 +26,7 @@
 				</div>
 			</form>
 		{% else %}
-			<p id="regPageText">To Like or Dislike a meme please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
+			<p id="regPageText">To write, like or dislike a comment please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
 		{% endif %}
 		<hr>
 		<ul class="list-unstyled">
@@ -43,9 +43,11 @@
 						<p>{{comment.text}}</p>
 						{% if request.user.is_authenticated %}
 						<div class="form-group ">
-							<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"> :{{comment.likes}}</a>
-							<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike">: {{comment.dislikes}}</a>
+							<a class="btn btn-primary" title="Like comment" href="{% url 'rate' type='comment' id=comment.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"> :{{comment.likes}}</a>
+							<a class="btn btn-danger" title="Dislike comment" href="{% url 'rate' type='comment' id=comment.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"> : {{comment.dislikes}}</a>
 						</div>
+						{else}
+							<p><img src="{% static 'images/like.png'%}" class="smallLikeIcon"> {{comment.likes}}  | {{ comment.dislikes }} <img src="{% static 'images/dislike.png'%}" class="smallLikeIcon"></p>
 						{% endif %}
 					</div>
 				</li>

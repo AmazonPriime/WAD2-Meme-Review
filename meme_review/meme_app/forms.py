@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
-from meme_app.models import UserProfile, Meme, Category
+from meme_app.models import UserProfile, Meme, Category, Comment
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -48,3 +48,10 @@ class MemeForm(forms.ModelForm):
     class Meta:
         model = Meme
         fields = ('title', 'picture', 'category', 'nsfw')
+
+class CommentForm(forms.ModelForm):
+    text = forms.CharField(widget = forms.TextInput(attrs = {'class' : 'form-control', 'type' : 'text', 'placeholder' : 'Please enter a comment'}), required = True)
+
+    class Meta:
+        model = Comment
+        fields = ('text',)

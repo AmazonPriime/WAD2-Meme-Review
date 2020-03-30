@@ -13,6 +13,7 @@ urlpatterns = [
     re_path(r'^category/(?P<cat>.*)/$', views.category, name='category'),
     re_path(r'^meme/(?P<id>.*)/$', views.meme, name='meme'),
 	re_path(r'^rate/(?P<type>.*)/(?P<id>.*)/$', views.rate, name='rate'),
+	re_path(r'^comment/(?P<id>.*)/$', views.comment, name='comment'),
     path('meme_creator/', views.meme_creator, name='meme_creator'),
     path('about/', views.about, name='about'),
     path('unsupported/', views.unsupported, name='unsupported'),

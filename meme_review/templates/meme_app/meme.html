@@ -14,7 +14,8 @@
 <div class = "form wide-form fade-in">
 		<h3>Comments</h3>
 		{% if request.user.is_authenticated %}
-			<form id='comment_form' method='post' action="#">
+			<form id='comment_form' method='post' action="{% url 'comment' meme.id %}">
+				{% csrf_token %}
 				<div class="form-group row">
 					<div class="col">
 						{{ comment_form.text }}
@@ -46,8 +47,8 @@
 					{% endif %}
 				</div>
 			</div><hr>
-			
-			
+
+
 			{% endfor %}
 		</div>
 

@@ -1,0 +1,31 @@
+{% load static %}
+
+<div class = "row">
+{% for meme in memes %}
+<!--
+	<div class="col-md-4 grey-border">
+		<figure class = "figure center-figure smallMeme">
+			<a href="{% url 'meme' meme.id %}">
+				<div style="height:75%;">
+					<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="figure-img img-fluid" alt="PlaceHolder">
+				</div>
+			</a>
+			<a href="{% url 'account' meme.user.user.username %}">
+				<figcaption class="figure-caption text-center">{{meme.user.user.username}}<br>
+					<img src="{% if meme.user.picture %}{{ MEDIA_URL }}{{ meme.user.picture }}{% else %}{% static 'images/user_default.png' %}{% endif %}" class="figure-img img-fluid smallUserIcon" alt="PlaceHolder">
+				</figcaption>
+			</a>
+			<div class="text-center">Likes: {{meme.likes}}</div>
+		</figure>
+	</div>
+-->
+	<div class="col-md-4 text-center" style="padding:0.5em;">
+		<a href="{% url 'meme' meme.id %}">
+			<img src="{{ MEDIA_URL }}{{ meme.picture }}" class="img-fluid" style="border:1px solid black;min-height:250px;max-height:250px;" alt="Meme Image">
+		</a>
+		<hr>
+			<i class="fas fa-user-alt"></i> <a href="{% url 'account' meme.user.user.username %}">{{ meme.user.user.username }}</a>, {{ meme.date }} <br>
+			<i class="fas fa-thumbs-up"></i> {{ meme.likes }} | {{ meme.dislikes }} <i class="fas fa-thumbs-down"></i>
+	</div>
+{% endfor %}
+</div>

@@ -19,7 +19,10 @@
 		<a class="btn btn-danger" title="Dislike" href="{% url 'rate' type='meme' id=meme.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"> :{{meme.dislikes}}</a>
 	</div>
 	{%else%}
-		<p><img src="{% static 'images/like.png'%}" class="smallLikeIcon"> {{meme.likes}}  | {{meme.dislikes}} <img src="{% static 'images/dislike.png'%}" class="smallLikeIcon"></p>
+	<div class="form-group text-center">
+		<img src="{% static 'images/like.png'%}" class="smallLikeIcon"> {{meme.likes}}  | {{meme.dislikes}} <img src="{% static 'images/dislike.png'%}" class="smallLikeIcon">
 		<p id="regPageText">To Like or Dislike a meme please <a href="{% url 'login' %}">log in</a> or <a href="{% url 'register' %}">register</a></p>
+	</div>
+		
 	{%endif%}
 </figure>

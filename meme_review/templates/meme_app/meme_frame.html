@@ -13,6 +13,6 @@
 	<br>Dislikes: {{meme.dislikes}}
 	<div class="form-group ">
 		<a class="btn btn-success" title="Like" href="{% url 'rate' type='meme' id=meme.id %}?value=1"><img src="{% static 'images/like.png' %}" class="figure-img img-fluid smallLikeIcon" alt="Like"></a>
-		<a class="btn btn-danger" title="Dislike" href="{% url 'rate' type='meme' id=meme.id %}?value=0"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"></a>
+		<a class="btn btn-danger" title="Dislike" href="{% url 'rate' type='meme' id=meme.id %}?value=-1"><img src="{% static 'images/dislike.png' %}" class="figure-img img-fluid smallLikeIcon likeToDislike" alt="Dislike"></a>
 	</div>
 </figure>

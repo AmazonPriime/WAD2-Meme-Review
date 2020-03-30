@@ -35,12 +35,10 @@
 				</div>
 			</div>
 			<p>{{comment.text}}</p>
-			<form>
-					<div class="form-group ">
-						<button class="btn btn-primary">Like: {{comment.likes}}</button>
-						<button class="btn btn-danger">Dislike: {{comment.dislikes}}</button>
-					</div>
-			</form>
+			<div class="form-group ">
+				<a class="btn btn-primary" href="{% url 'rate' type='comment' id=comment.id %}?value=1">Like: {{comment.likes}}</a>
+				<a class="btn btn-danger" href="{% url 'rate' type='comment' id=comment.id %}?value=-1">Dislike: {{comment.dislikes}}</a>
+			</div>
 			{% endfor %}
 		</div>
 

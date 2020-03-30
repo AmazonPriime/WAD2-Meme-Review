@@ -50,3 +50,21 @@ class Comment(models.Model):
 class View(models.Model):
     viewer_id = models.CharField(max_length=64)
     meme = models.ForeignKey(Meme, on_delete=models.CASCADE)
+
+class MemeRating(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    meme = models.ForeignKey(Meme, on_delete=models.CASCADE)
+    # 1 for like and -1 for dislike, 0 is default
+    value = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = (('user', 'meme'),)
+
+class CommentRating(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    # 1 for like and -1 for dislike, 0 is default
+    value = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = (('user', 'comment'),)

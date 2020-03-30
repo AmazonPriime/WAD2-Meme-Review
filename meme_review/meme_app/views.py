@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from meme_app.models import Meme, UserProfile, Category, Comment, View
+from meme_app.models import Meme, UserProfile, Category, Comment, View, MemeRating, CommentRating
 from meme_app.forms import UserForm, UserProfileForm, MemeForm, AccountForm
 from datetime import datetime, timedelta, date
 from django.core.paginator import Paginator
@@ -212,21 +212,65 @@ def unsupported(request):
     return render(request,'unsupported.html')
 
 
+@login_required(login_url='login')
 def rate(request, id, type):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
+
     try:
-        meme = Meme.objects.get(id = id)
-    except:
-        render(request, '404.html', context_dict)
-    value = request.GET.get('value')
-    print(type)
-    if value == '1':
-        meme.likes += 1
-    elif type == '0':
-        meme.dislikes += 1
-    meme.save()
-    return redirect(reverse('meme', args = [meme.id]))
+        value = int(request.GET.get('value'))
+        print(1)
+        user = UserProfile.objects.get(user = request.user)
+        print(2)
+        if type == "meme":
+            meme = Meme.objects.get(id = id)
+            rating = MemeRating.objects.get_or_create(meme = meme, user = user)[0]
+            do_rating(meme, rating, value)
+            meme.save()
+            rating.save()
+            return redirect(reverse('meme', args = [meme.id]))
+
+        elif type == "comment":
+            print(3)
+            comment = Comment.objects.get(id = id)
+            print(4)
+            rating = CommentRating.objects.get_or_create(comment = comment, user = user)[0]
+            print(5)
+            do_rating(comment, rating, value)
+            comment.save()
+            rating.save()
+            return redirect(reverse('meme', args = [comment.meme.id]))
+
+        else:
+            return render(request, '404.html', context_dict)
+
+    except Exception as e:
+        print(e)
+        return render(request, '404.html', context_dict)
+
+# helper methods for the rate view
+def do_rating(model, rating, value):
+    if rating.value == 0:
+        # no prev rating
+        rating.value = value
+        if value == 1:
+            model.likes += 1
+        elif value == -1:
+            model.dislikes += 1
+
+    elif rating.value == 1:
+        # prev rating was a like
+        if value == -1:
+            rating.value = value
+            model.likes -= 1
+            model.dislikes += 1
+
+    elif rating.value == -1:
+        # prev rating was a dislike
+        if value == 1:
+            rating.value = value
+            model.likes += 1
+            model.dislikes -= 1
 
 
 def restrictor(user):

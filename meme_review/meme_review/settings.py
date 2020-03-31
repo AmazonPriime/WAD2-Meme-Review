@@ -29,7 +29,7 @@ with open(os.path.join(BASE_DIR, 'secret.key')) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["memereviews.pythonanywhere.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition

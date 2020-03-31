@@ -7,6 +7,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Meme Reviews - {% block title_block %} Home {% endblock %}</title>
+		<link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}"/>
 		<!-- CSS -->
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" integrity="sha384-Bfad6CLCknfcloXFOyFnlgtENryhrpZCe29RTifKEixXQZ38WheV+i/6YWSzkz3V" crossorigin="anonymous">
@@ -14,7 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/button.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/arrowrotate.css' %}">
-		
+
 			<script>//Detects browser if IE unsupported
 			var agent = window.navigator.userAgent;
 			var IExplorer = agent.indexOf('MSIE');
@@ -74,7 +75,7 @@
 		<div class = "form wide-form fade-in">
 			<a href={%url 'about'%}>About</a>, <a href={%url 'privacy'%}>Privacy Policy</a>, <a href={%url 'tandc'%}>Terms and conditions</a>, &copy2020
 		</div>
-		
+
 		<!-- Collapse Button JS -->
 		<script src="{% static 'js/collapse_text.js' %}"></script>
 		<!-- Bootstrap JS -->

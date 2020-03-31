@@ -76,6 +76,7 @@ handles the registration of a user
     if there the POST method is used it'll check the forms
     if the forms are valid it'll save the users details to the database
         although if the user is 13 or under it will give an error message
+        also the user must accept the TOS and privacy policy
     if they're not valid the user is shown what the issues are in the form
 """
 def register(request):
@@ -86,6 +87,8 @@ def register(request):
             user_form = UserForm(request.POST)
             profile_form = UserProfileForm(request.POST)
 
+            print(request.POST.get('tos'))
+
             if user_form.is_valid() and profile_form.is_valid():
                 user = user_form.save()
                 user.set_password(user.password)
@@ -95,7 +98,12 @@ def register(request):
                 profile.save()
                 if ((profile.dob - date.today()).days / 365.25) <= 13:
                     profile.delete()
+                    user.delete()
                     messages.error(request, "Sorry, you need to be over 13 years of age to register.")
+                elif request.POST.get('tos') != "on":
+                    profile.delete()
+                    user.delete()
+                    messages.error(request, "You must accept the TOS and Privacy Policy in order to register.")
                 else:
                     registered = True
             else:
@@ -352,7 +360,7 @@ def privacy(request):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
     return render(request,'policies/privacypolicy.html', context_dict)
-    
+
 """
 Privacy Terms and Conditions
 simply returns the Terms and Conditions policy browser page

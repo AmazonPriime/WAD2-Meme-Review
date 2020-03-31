@@ -11,8 +11,12 @@
 4. Create a virtual enviroment:
    * If you're not using Anaconda Navigator use `python[3] -m venv <name>`
    * For Anaconda Navigator use `conda create <name>`
-5. Next install the requirements from the `requirements.txt` with `pip[3] install -r requirements.txt`
-6. Now navigate to the `meme_review` directory where the `manage.py` is stored
+5. Activate the virtual enviroment:
+   * For Anaconda Navigator `conda activate <name>`
+   * Windows non-anaconda venv `<name>/bin/activate.bat`
+   * MacOS and Linux non-anaconda venv `source <name>/bin/activate`
+6. Next install the requirements from the `requirements.txt` with `pip[3] install -r requirements.txt`
+7. Now navigate to the `meme_review` directory where the `manage.py` is stored
 
 #### Populating the Database
 1. First make the migrations as they're not included in the repo `python[3] manage.py makemigrations`

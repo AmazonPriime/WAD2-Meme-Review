@@ -10,9 +10,7 @@
 		<div class="text-center lead">
 			Thanks for registering! <br>
 			You will be redirected in 3s, if it doesn't automatically redirect you then click <a href="{% url 'login' %}">here</a>
-			<script>
-				window.setTimeout(function () { location.href = "{% url 'login' %}"; }, 3000);
-			</script>
+			<script> window.setTimeout(function () { location.href = "{% url 'login' %}"; }, 3000); </script>
 		</div>
 	{% else %}
 		<h2 class="text-center">Create New Account</h2>
@@ -66,6 +64,11 @@
 		  <div class="form-group">
 		    {{ user_form.confirm_password }}
 		  </div>
+			<div class="form-check">
+			 	<input type="checkbox" name="tos" class="form-check-input" id="tos" required>
+			  <label class="form-check-label" for="tos"> Have you read and accepted the <a href="{% url 'tandc' %}" target="_blank"><b>TOS</b></a> and <a href="{% url 'privacy' %}" target="_blank"><b>Privacy Policy</b></a>? </label>
+		  </div>
+			<br>
 		  <div class="form-group">
 		    <button type="submit" class="btn btn-success btn-block">Register</button>
 		  </div>

@@ -38,8 +38,10 @@ Live Website: [Meme Review - Python Anywhere](http://memereviews.pythonanywhere.
 * pytz v2019.3
 * sqlparse v0.3.0
 
-#### Sources
-* [How to Create a Password Reset View](https://simpleisbetterthancomplex.com/tutorial/2016/09/19/how-to-create-password-reset-view.html)
 #### Resources Used
 * [Bootstrap](https://getbootstrap.com/)
 * [Font Awesome](https://fontawesome.com/)
+
+#### Sources
+* [How to Create a Password Reset View](https://simpleisbetterthancomplex.com/tutorial/2016/09/19/how-to-create-password-reset-view.html)
+

@@ -75,6 +75,7 @@ Registration View
 handles the registration of a user
     if there the POST method is used it'll check the forms
     if the forms are valid it'll save the users details to the database
+        although if the user is 13 or under it will give an error message
     if they're not valid the user is shown what the issues are in the form
 """
 def register(request):
@@ -92,7 +93,11 @@ def register(request):
                 profile = profile_form.save(commit = False)
                 profile.user = user
                 profile.save()
-                registered = True
+                if ((profile.dob - date.today()).days / 365.25) <= 13:
+                    profile.delete()
+                    messages.error(request, "Sorry, you need to be over 13 years of age to register.")
+                else:
+                    registered = True
             else:
                 print(user_form.errors, profile_form.errors)
         else:

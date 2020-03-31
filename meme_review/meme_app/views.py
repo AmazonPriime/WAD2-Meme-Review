@@ -285,6 +285,7 @@ def meme_creator(request):
                 print("Image is invalid.")
                 meme.delete()
                 meme.save()
+                messages.error(request, "Sorry, you need to be over 13 years of age to register.")
                 return render(request, 'meme_app/memecreator.html', {'meme_form' : MemeForm(), 'categories' : Category.objects.all()})
             meme.picture = meme_uri
             meme.save()

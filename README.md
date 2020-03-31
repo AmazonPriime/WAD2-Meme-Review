@@ -40,3 +40,6 @@ Live Website: [Meme Review - Python Anywhere](http://memereviews.pythonanywhere.
 
 #### Sources
 * [How to Create a Password Reset View](https://simpleisbetterthancomplex.com/tutorial/2016/09/19/how-to-create-password-reset-view.html)
+#### Resources Used
+* [Bootstrap](https://getbootstrap.com/)
+* [Font Awesome](https://fontawesome.com/)

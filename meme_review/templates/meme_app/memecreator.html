@@ -9,6 +9,12 @@
 		<h1>Meme Creator</h1>
 		<hr>
 		<form id='meme_form' method='post' action="{% url 'meme_creator' %}">
+		{% for message in messages %}
+			<div class="alert alert-danger">
+				<a class="close" href="#" data-dismiss="alert">×</a>
+	      {{ message }}
+			</div>
+		{% endfor %}
 		{% csrf_token %}
 			<div class="form-group">
 		     <p id="regPageText">Meme's title:</p>

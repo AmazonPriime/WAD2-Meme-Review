@@ -22,7 +22,9 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '6s1(58a+r2p#z$bd+**-y+-h)k18zf+6kqjj!&+nk&^-pi%^-7'
+SECRET_KEY = None
+with open(os.path.join(BASE_DIR, 'secret.key')) as f:
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -127,7 +129,7 @@ MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.mail.yahoo.com' 
+EMAIL_HOST = 'smtp.mail.yahoo.com'
 EMAIL_HOST_USER = 'djangomemereviews@yahoo.com'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = 'ijlqdixxsqegmsyg'

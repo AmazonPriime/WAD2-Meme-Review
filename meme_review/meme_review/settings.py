@@ -27,7 +27,7 @@ SECRET_KEY = '6s1(58a+r2p#z$bd+**-y+-h)k18zf+6kqjj!&+nk&^-pi%^-7'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["memereviews.pythonanywhere.com"]
 
 
 # Application definition

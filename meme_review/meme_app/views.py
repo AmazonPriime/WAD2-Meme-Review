@@ -96,7 +96,7 @@ def register(request):
                 profile = profile_form.save(commit = False)
                 profile.user = user
                 profile.save()
-                if ((profile.dob - date.today()).days / 365.25) <= 13:
+                if ((date.today() - profile.dob).days / 365.25) <= 13:
                     profile.delete()
                     user.delete()
                     messages.error(request, "Sorry, you need to be over 13 years of age to register.")

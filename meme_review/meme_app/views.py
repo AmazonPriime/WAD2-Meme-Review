@@ -345,6 +345,20 @@ def unsupported(request):
     return render(request,'unsupported.html')
 
 """
+Privacy Policy View
+simply returns the privacy policy browser page
+"""
+def privacy(request):
+    return render(request,'policies/privacypolicy.html')
+    
+"""
+Privacy Terms and Conditions
+simply returns the Terms and Conditions policy browser page
+"""
+def tandc(request):
+    return render(request,'policies/tandc.html')
+
+"""
 Rate View
 handles how ratings are applied to both memes and comments
 depending on whether type is meme or comment the MemeRating or CommentRating is created

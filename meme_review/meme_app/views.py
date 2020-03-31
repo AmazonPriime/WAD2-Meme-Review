@@ -349,14 +349,18 @@ Privacy Policy View
 simply returns the privacy policy browser page
 """
 def privacy(request):
-    return render(request,'policies/privacypolicy.html')
+    context_dict = {}
+    context_dict['categories'] = Category.objects.all()
+    return render(request,'policies/privacypolicy.html', context_dict)
     
 """
 Privacy Terms and Conditions
 simply returns the Terms and Conditions policy browser page
 """
 def tandc(request):
-    return render(request,'policies/tandc.html')
+    context_dict = {}
+    context_dict['categories'] = Category.objects.all()
+    return render(request,'policies/tandc.html', context_dict)
 
 """
 Rate View

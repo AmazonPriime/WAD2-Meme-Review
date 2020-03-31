@@ -11,16 +11,22 @@ from django.core.paginator import Paginator
 from django.conf import settings
 import random, re, base64, os
 
+"""
+Index View
+returns:
+    one of 5 top memes from the past 7 days
+    top (up to 9) memes from within the last 24 hours
+"""
 def index(request):
     context_dict = {}
-    memes = Meme.objects.all()
+    memes = Meme.objects.all().filter(nsfw = (not restrictor(request.user))).order_by('-likes')
     context_dict['categories'] = Category.objects.all()
 
     # get a trending meme, random from 5 most liked in past week
     seven_days_ago = datetime.now() - timedelta(days = 7)
-    recent_top_memes = memes.filter(date__range = [seven_days_ago, datetime.now()], nsfw = (not restrictor(request.user))).order_by('-likes')[:5]
+    recent_top_memes = memes.filter(date__range = [seven_days_ago, datetime.now()])[:5]
     if(len(memes)>0):
-        context_dict['trending_meme'] = memes[random.randint(0,len(memes) - 1)]
+        context_dict['trending_meme'] = recent_top_memes[random.randint(0,len(recent_top_memes) - 1)]
     else:
         context_dict['trending_meme'] = None
 
@@ -30,7 +36,12 @@ def index(request):
 
     return render(request, 'meme_app/index.html', context_dict)
 
-
+"""
+User Login View
+handles the login of a user
+    if the login is successful it redurects them to the index page
+    otherwise it will go back to the login page advising user that username/password is incorrect
+"""
 def user_login(request):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
@@ -50,13 +61,22 @@ def user_login(request):
     else:
         return redirect(reverse('index'))
 
-
+"""
+Logout View
+simply logs the user out and redirects them to the index page
+"""
 @login_required(login_url='login')
 def user_logout(request):
     logout(request)
     return redirect(reverse('index'))
 
-
+"""
+Registration View
+handles the registration of a user
+    if there the POST method is used it'll check the forms
+    if the forms are valid it'll save the users details to the database
+    if they're not valid the user is shown what the issues are in the form
+"""
 def register(request):
     if not request.user.is_authenticated:
         registered = False
@@ -89,7 +109,13 @@ def register(request):
     else:
         return redirect(reverse('index'))
 
-
+"""
+Top Memes View
+shows the top memes on the site including the top from the different categories
+returns:
+    the top 9 memes of all time
+    the top 3 memes from each category
+"""
 def top_memes(request):
     context_dict = {}
     memes = Meme.objects.all().filter(nsfw = (not restrictor(request.user)))
@@ -104,7 +130,19 @@ def top_memes(request):
 
     return render(request, 'meme_app/topmemes.html', context_dict)
 
-
+"""
+Account View
+handles the viewing of accounts and also allows a logged in user to edit their own account
+    if the user is logged into their own account a form will be shown allowing them to edit their details
+        if the request is POST and the forms are valid the details are saved and updated
+    otherwise no form is shown
+returns:
+    memes from the user who's account is being viewed
+        if the logged in user is viewing their own account the nsfw filter is not applied
+    total meme count
+    total amount of likes recieved
+    total amount of dislikes recieved
+"""
 def account(request, username):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
@@ -114,14 +152,15 @@ def account(request, username):
     except:
         return render(request, '404.html', context_dict)
 
-    if request.user.username == username:
-        memes = Meme.objects.all().filter(user = user)
-    else:
-        memes = Meme.objects.all().filter(user = user, nsfw = (not restrictor(request.user)))
-    context_dict['memes'] = memes
+    memes = Meme.objects.all().filter(user = user)
     context_dict['meme_total'] = len(memes)
     context_dict['likes_total'] = sum([meme.likes for meme in memes])
     context_dict['dislikes_total'] = sum([meme.dislikes for meme in memes])
+
+    if not request.user.username == username:
+        memes = memes.filter(nsfw = (not restrictor(request.user)))
+
+    context_dict['memes'] = memes
 
     if request.user.username == username:
         if request.method == 'POST':
@@ -136,10 +175,18 @@ def account(request, username):
 
         context_dict['profile_form'] = AccountForm(instance = user)
 
+    # using this because had issues using user.picture as it would keep returning blank in the template
     context_dict['img_url'] = user.picture
     return render(request, 'meme_app/account.html', context_dict)
 
-
+"""
+Category View
+handles the category pages including the pagnation of pages when theres more than 9 memes
+returns:
+    boolean for if there are any memes in this category
+    page containing memes
+    the category of the page
+"""
 def category(request, cat):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
@@ -155,14 +202,26 @@ def category(request, cat):
         context_dict['has_memes'] = False
     else:
         context_dict['has_memes'] = True
-    paginator = Paginator(memes, 9) # 9 meme per page
+
+    # shows 9 memes per pagnator page
+    paginator = Paginator(memes, 9)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context_dict['page'] = page_obj
     context_dict['category'] = cat
+
     return render(request, 'meme_app/category.html', context_dict)
 
-
+"""
+Meme View
+handles how the meme page is shown
+retrieves and shows the meme to the user, also increments the view counter for the meme if the session id cannot be found in View table
+if the user is logged in it'll also show the CommentForm so they can comment on a meme
+returns:
+    the meme to be displayed
+    the comments for that meme
+    the CommentForm - if the user is logged in
+"""
 def meme(request, id):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
@@ -183,12 +242,23 @@ def meme(request, id):
             meme.save()
     except:
         return render(request, '404.html', context_dict)
+
     if request.user.is_authenticated:
         context_dict['comment_form'] = CommentForm()
 
     return render(request, 'meme_app/meme.html', context_dict)
 
-
+"""
+Meme Creator View
+handles the creation of memes
+if the request is a post request the form is checked if valid
+    when valid it creates a new meme object and stores the required data
+    for the meme image since the byte data is sent over a helper function converts that to an image
+    if the helper method returns -1 then the meme is deleted and user is sent back to the form with an error message
+    otherwise the picture is saved to the server and url is saved on the model
+returns:
+    meme form so the user can put the details in for their meme
+"""
 @login_required(login_url='login')
 def meme_creator(request):
     if request.method == 'POST':
@@ -214,7 +284,7 @@ def meme_creator(request):
     context_dict = {'meme_form' : meme_form, 'categories' : Category.objects.all()}
     return render(request, 'meme_app/memecreator.html', context_dict)
 
-# meme_creator helper function
+# meme_creator helper method
 def meme_image(dataURL, id):
     dataUrlPattern = re.compile('data:image/(png|jpeg);base64,(.*)$')
     image_data = dataUrlPattern.match(dataURL).group(2)
@@ -226,7 +296,13 @@ def meme_image(dataURL, id):
         f.write(image_data)
     return os.path.join('meme_images', f"{id}.png")
 
-
+"""
+Comment View
+handles the commenting on a meme
+if the request is a POST request the form is checked to be valid
+    if it's invalid the user is sent back with an error message
+    otherwise the data is stored in the database and use is returned to the meme they commented on
+"""
 @login_required(login_url='login')
 def comment(request, id):
     try:
@@ -247,17 +323,30 @@ def comment(request, id):
 
     return redirect(reverse('meme', args = [meme.id]))
 
-
+"""
+About View
+simply returns the about page
+"""
 def about(request):
     context_dict = {}
     context_dict['categories'] = Category.objects.all()
     return render(request,'meme_app/about.html', context_dict)
 
-
+"""
+Unsupported View
+simply returns the unsupported browser page
+"""
 def unsupported(request):
     return render(request,'unsupported.html')
 
-
+"""
+Rate View
+handles how ratings are applied to both memes and comments
+depending on whether type is meme or comment the MemeRating or CommentRating is created
+the helper method do_rating makes sure that previous like/dislike is handled correctly
+    if the user has liked or disliked before it removes the rating and applies the new one
+    if they have never rated it just applies it
+"""
 @login_required(login_url='login')
 def rate(request, id, type):
     context_dict = {}
@@ -284,7 +373,6 @@ def rate(request, id, type):
 
         else:
             return render(request, '404.html', context_dict)
-
     except:
         return render(request, '404.html', context_dict)
 
@@ -312,7 +400,7 @@ def do_rating(model, rating, value):
             model.likes += 1
             model.dislikes -= 1
 
-
+# helper method to make sure user is able to see NSFW memes
 def restrictor(user):
     if not user.is_authenticated:
         return True

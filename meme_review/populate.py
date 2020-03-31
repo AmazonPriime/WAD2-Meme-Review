@@ -23,7 +23,8 @@ def add_category(name):
 
 # function to add a user and userprofile to the databse
 def add_user(username, password, image, dob, bio):
-	user = User.objects.get_or_create(username = username, password = password)[0]
+	user = User.objects.get_or_create(username = username)[0]
+	user.set_password(password)
 	user.save()
 	user_profile = UserProfile.objects.get_or_create(user = user, picture = image, dob = dob, bio = bio)[0]
 	user_profile.save()
@@ -78,6 +79,7 @@ def populate():
 		{'username':'Adam', 'password':'password', 'image':'profile_images/profile5.jfif', 'dob':'1984-06-27', 'bio':'Rain jacket guy'},
 		{'username':'Lucy', 'password':'password', 'image':'profile_images/profile6.jfif', 'dob':'1973-05-05', 'bio':'Curly haired with beard guy'},
 		{'username':'Stephen', 'password':'password', 'image':'profile_images/profile6.jfif', 'dob':'1961-04-14', 'bio':'Blue jacket girl'},
+		{'username':'Young', 'password':'password', 'image':'profile_images/clap.png', 'dob':'2005-04-14', 'bio':'Very young person'},
 	]
 
 	memes = [

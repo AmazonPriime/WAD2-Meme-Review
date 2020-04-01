@@ -1,4 +1,3 @@
-//https://www.youtube.com/watch?v=aIgWxXlpRvU
 let canvas,ctx, uploadedImage, topText, bottomText, createButton, fontSize, fontName, outlineWidth, submitButton, imageField;
 function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
 	imageField.width =canvas.width = img.width;
@@ -10,23 +9,26 @@ function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
 	ctx.strokeStyle = "black";
 	ctx.lineWidth = outlineWidth/10;
 	ctx.textAlign = "center";
+	//draw top text
 	ctx.textBaseline = "top";
 	topText.split("\n").forEach( function(curText,i){
 		ctx.fillText(curText, canvas.width/2, i*fontSize, canvas.width);
 		ctx.strokeText(curText, canvas.width/2, i*fontSize, canvas.width);
 	});
+	//draw bottom text
 	ctx.textBaseline = "bottom";
 	bottomText.split("\n").forEach( function(curText,i){
 		ctx.fillText(curText, canvas.width/2, canvas.height-i*fontSize, canvas.width);
 		ctx.strokeText(curText, canvas.width/2, canvas.height-i*fontSize, canvas.width);
 	});
-	//now convert canvas to image and set the image to hidden img field
+	//now convert canvas to image and set the text box holding image data to image's source code
 	var curImage = new Image();
 	curImage.src = canvas.toDataURL("image/png");
 	imageField.value = curImage.src;
 }
 
 function drawDefaultCanvas(){
+	//empty canvas draw default image
 	canvas.width = 400;
 	canvas.height = 400;
 	ctx.clearRect(0,0,400, 400);
@@ -64,6 +66,7 @@ function start(){
 	imageField = document.getElementById("imageField");
 	drawDefaultCanvas();
 	createButton = document.getElementById("createMeme");
+	//on click read the image and render it (with text and selected formatting options
 	createButton.addEventListener("click", function(){
 		let reader = new FileReader();
 		reader.onload = function(){

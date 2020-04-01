@@ -19,8 +19,10 @@ returns:
 """
 def index(request):
     context_dict = {}
-    memes = Meme.objects.all().filter(nsfw = (not restrictor(request.user))).order_by('-likes')
     context_dict['categories'] = Category.objects.all()
+    memes = Meme.objects.all().order_by('-likes')
+    if restrictor(request.user):
+        memes = memes.filter(nsfw = False)
 
     # get a trending meme, random from 5 most liked in past week
     seven_days_ago = datetime.now() - timedelta(days = 7)
@@ -131,8 +133,10 @@ returns:
 """
 def top_memes(request):
     context_dict = {}
-    memes = Meme.objects.all().filter(nsfw = (not restrictor(request.user)))
     context_dict['categories'] = Category.objects.all()
+    memes = Meme.objects.all()
+    if restrictor(request.user):
+        memes = memes.filter(nsfw = False)
 
     # gets the top 9 memes of all time
     context_dict['top_memes'] = {'Popular Memes' : memes.order_by('-likes')[:9]}
@@ -170,8 +174,8 @@ def account(request, username):
     context_dict['likes_total'] = sum([meme.likes for meme in memes])
     context_dict['dislikes_total'] = sum([meme.dislikes for meme in memes])
 
-    if not request.user.username == username:
-        memes = memes.filter(nsfw = (not restrictor(request.user)))
+    if request.user.username != username:
+        memes = memes.filter(nsfw = not restrictor(request.user))
 
     context_dict['memes'] = memes
 
@@ -208,11 +212,14 @@ def category(request, cat):
         return render(request, '404.html', context_dict)
 
     # gets memes with a specific category
-    memes = Meme.objects.all().filter(category = cat_obj, nsfw = (not restrictor(request.user)))
-    if not memes:
-        context_dict['has_memes'] = False
-    else:
+    memes = Meme.objects.all().filter(category = cat_obj)
+    if restrictor(request.user):
+        memes = memes.filter(nsfw = False)
+
+    if memes:
         context_dict['has_memes'] = True
+    else:
+        context_dict['has_memes'] = False
 
     # shows 9 memes per pagnator page
     paginator = Paginator(memes, 9)
@@ -432,11 +439,11 @@ def restrictor(user):
         return True
     else:
         try:
-            user = UserProfile.objects.get(user__username == user.username)
-            age_years = (date.today() - user.dob).days / 365.25
-            if age_years > 18:
+            user = UserProfile.objects.get(user = user)
+            if (date.today() - user.dob).days / 365.25 >= 18:
                 return False
             else:
                 return True
         except:
+            print("user not found")
             return True

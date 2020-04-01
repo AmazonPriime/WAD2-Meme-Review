@@ -86,7 +86,7 @@ def populate():
 		{'user':'Thomas', 'title':'Boomer Zoomers', 'picture':'meme_images/onlinelectures.jpg', 'date':'2020-03-24', 'views':'12', 'category':'Science', 'nsfw':'False'},
 		{'user':'Adam', 'title':'Lockdown', 'picture':'meme_images/goingoutside.jpg', 'date':'2020-03-25', 'views':'4', 'category':'Business', 'nsfw':'True'},
 		{'user':'Adam', 'title':'Uh-oh', 'picture':'meme_images/god.jpg', 'date':'2020-03-26', 'views':'15', 'category':'Games', 'nsfw':'False'},
-		{'user':'Adam', 'title':'He protec, he attac', 'picture':'meme_images/dogmeme.jpg', 'date':'2020-03-27', 'views':'0', 'category':'Gardening', 'nsfw':'True'},
+		{'user':'Young', 'title':'He protec, he attac', 'picture':'meme_images/dogmeme.jpg', 'date':'2020-03-27', 'views':'0', 'category':'Gardening', 'nsfw':'True'},
 		{'user':'Selim', 'title':'Queen of Avocados', 'picture':'meme_images/avacado.jpg', 'date':'2020-03-30', 'views':'6', 'category':'Art', 'nsfw':'False'},
 		{'user':'Lucy', 'title':'Sean "Baked" Beans', 'picture':'meme_images/meme1.jpg', 'date':'2020-03-30', 'views':'22', 'category':'Food and drink', 'nsfw':'False'},
 		{'user':'Stephen', 'title':'Realisation', 'picture':'meme_images/meme2.jpg', 'date':'2020-03-30', 'views':'9', 'category':'Design', 'nsfw':'False'},

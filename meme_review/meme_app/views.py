@@ -87,8 +87,6 @@ def register(request):
             user_form = UserForm(request.POST)
             profile_form = UserProfileForm(request.POST)
 
-            print(request.POST.get('tos'))
-
             if user_form.is_valid() and profile_form.is_valid():
                 user = user_form.save()
                 user.set_password(user.password)
@@ -96,7 +94,7 @@ def register(request):
                 profile = profile_form.save(commit = False)
                 profile.user = user
                 profile.save()
-                if ((date.today() - profile.dob ).days / 365.25) <= 13:
+                if ((date.today() - profile.dob).days / 365.25) <= 13:
                     profile.delete()
                     user.delete()
                     messages.error(request, "Sorry, you need to be over 13 years of age to register.")
@@ -104,10 +102,12 @@ def register(request):
                     profile.delete()
                     user.delete()
                     messages.error(request, "You must accept the TOS and Privacy Policy in order to register.")
+                elif request.POST.get('password') != request.POST.get('confirm_password'):
+                    profile.delete()
+                    user.delete()
+                    messages.error(request, "The passwords provided do not match.")
                 else:
                     registered = True
-            else:
-                print(user_form.errors, profile_form.errors)
         else:
             user_form = UserForm()
             profile_form = UserProfileForm()
@@ -183,8 +183,6 @@ def account(request, username):
                 if 'picture' in request.FILES:
                     user.picture = request.FILES['picture']
                 user.save()
-            else:
-                print(profile_form.errors)
 
         context_dict['profile_form'] = AccountForm(instance = user)
 
@@ -290,8 +288,6 @@ def meme_creator(request):
             meme.picture = meme_uri
             meme.save()
             return redirect(reverse('meme', args = [meme.id]))
-        else:
-            print(meme_form.errors)
     else:
         meme_form = MemeForm()
 
@@ -332,8 +328,6 @@ def comment(request, id):
             comment.user = UserProfile.objects.get(user = request.user)
             comment.meme = meme
             comment.save()
-        else:
-            print(comment_form.errors)
 
     return redirect(reverse('meme', args = [meme.id]))
 

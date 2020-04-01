@@ -72,10 +72,13 @@ function start(){
 		reader.onload = function(){
 			let img = new Image;
 			img.src = reader.result;
+			//loading the image takes time, wait until its loaded
+			img.onload = function(){
 			createMeme(img,topText.value,bottomText.value,fontSize.value, fontName.options[fontName.selectedIndex].value, outlineWidth.value);
-			submitButton.style.visibility="visible";
+			};
 		};
 		reader.readAsDataURL(uploadedImage.files[0]);
+		submitButton.style.visibility="visible";
 	});
 
 }

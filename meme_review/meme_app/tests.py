@@ -6,7 +6,7 @@ from meme_app.forms import UserForm
 from datetime import datetime
 
 class test_index_view(TestCase):
-    
+
     @classmethod
     def setUp(self):
         test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
@@ -34,22 +34,28 @@ class test_index_view(TestCase):
 
     def test_index_view_with_top_meme(self):
 
-        Meme.objects.create(user = UserProfile.objects.get(user = test_user), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
                                    date = datetime.now() , likes = 100, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
 
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertNotEquals(response.context['trending_meme'], None)
 
-    
+
     def test_index_view_with_no_popular_memes(self):
         response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Currently no popular memes.')
         self.assertEquals(response.context['popular_memes'].count(), 0)
 
-    def test_index_view_with_popular_memes(self):
-        
 
+class test_meme_creator_index(TestCase):
+    def setUp(self):
+        pass
+
+    def test_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('meme_creator', kwargs={}))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/login/'))
 
 

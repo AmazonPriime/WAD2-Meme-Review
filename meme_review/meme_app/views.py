@@ -155,7 +155,6 @@ handles the viewing of accounts and also allows a logged in user to edit their o
     otherwise no form is shown
 returns:
     memes from the user who's account is being viewed
-        if the logged in user is viewing their own account the nsfw filter is not applied
     total meme count
     total amount of likes recieved
     total amount of dislikes recieved
@@ -174,8 +173,8 @@ def account(request, username):
     context_dict['likes_total'] = sum([meme.likes for meme in memes])
     context_dict['dislikes_total'] = sum([meme.dislikes for meme in memes])
 
-    if request.user.username != username:
-        memes = memes.filter(nsfw = not restrictor(request.user))
+    if restrictor(request.user):
+        memes = memes.filter(nsfw = False)
 
     context_dict['memes'] = memes
 
@@ -298,7 +297,9 @@ def meme_creator(request):
     else:
         meme_form = MemeForm()
 
-    context_dict = {'meme_form' : meme_form, 'categories' : Category.objects.all()}
+    user = UserProfile.objects.get(user = request.user)
+    age = (date.today() - user.dob).days / 365.25
+    context_dict = {'meme_form' : meme_form, 'categories' : Category.objects.all(), 'user_age' : age}
     return render(request, 'meme_app/memecreator.html', context_dict)
 
 # meme_creator helper method

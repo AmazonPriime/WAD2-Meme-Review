@@ -24,10 +24,12 @@
 		    <p id="regPageText">Choose main category:</p>
 		    {{ meme_form.category }}
 		  </div>
-			<div class = "form-check">
-			 	{{ meme_form.nsfw }}
-			  <label class = "form-check-label" for="isOver18" > Is this meme NSFW? </label>
-		  </div>
+			{% if user_age >= 18 %}
+				<div class = "form-check">
+				 	{{ meme_form.nsfw }}
+				  <label class = "form-check-label" for="isOver18" > Is this meme NSFW? </label>
+			  </div>
+			{% endif %}
 			<hr>
 			<h2>Meme Designer</h2>
 			<div id="memeCreator">

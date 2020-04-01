@@ -23,7 +23,7 @@ function createMeme(img, topText, bottomText,fontSize, fontName, outlineWidth){
 	//now convert canvas to image and set the image to hidden img field
 	var curImage = new Image();
 	curImage.src = canvas.toDataURL("image/png");
-	imageField.src = curImage.src;
+	imageField.value = curImage.src;
 }
 
 function drawDefaultCanvas(){
@@ -71,7 +71,6 @@ function start(){
 			img.src = reader.result;
 			createMeme(img,topText.value,bottomText.value,fontSize.value, fontName.options[fontName.selectedIndex].value, outlineWidth.value);
 			submitButton.style.visibility="visible";
-			document.getElementById("imageField").value = reader.result;
 		};
 		reader.readAsDataURL(uploadedImage.files[0]);
 	});

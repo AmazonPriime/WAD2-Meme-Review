@@ -22,9 +22,23 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+"""
+---~ IMPORTANT NOTICE!
+The reason we have both a secret key which is read from a file and one that is not
+is so we don't need to worry about when we put the code on the server as we will
+have the 'secret.key' on the server. This codes will allow developers to not worry
+about having a secret key.
+"""
+
 SECRET_KEY = None
-with open(os.path.join(BASE_DIR, 'secret.key')) as f:
-    SECRET_KEY = f.read().strip()
+try:
+    with open(os.path.join(BASE_DIR, 'secret.key')) as f:
+        SECRET_KEY = f.read().strip()
+except FileNotFoundError:
+    SECRET_KEY = 'psxawhbv5rozl0v&sge9qe3^_o^cu&bdeze3c(+@hk5b+-4gqb'
+if SECRET_KEY == None:
+    SECRET_KEY = 'psxawhbv5rozl0v&sge9qe3^_o^cu&bdeze3c(+@hk5b+-4gqb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -125,7 +139,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 STATICFILES_DIRS = [STATIC_DIR,]
 STATIC_URL = '/static/'
-STATIC_ROOT = STATIC_DIR
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
 

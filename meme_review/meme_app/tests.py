@@ -21,6 +21,12 @@ def add_meme(title, picture, likes, dislikes, views, category, user,
     meme.save()
     return meme
 
+'''
+
+Views
+
+'''
+
 class test_index_view(TestCase):
 
     @classmethod
@@ -78,6 +84,30 @@ class test_index_view(TestCase):
         self.assertEquals(response.context['popular_memes'].count(), 9)
         self.assertTrue(response.context['popular_memes'].sorted(iterable, key=likes))'''
 
+class test_register_view(TestCase):
+    @classmethod
+    def setUp(self):
+        test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
+                                      email = 'example@test.com', password = 'password1')
+        test_user.save()
+
+    def test_register_correct_template(self):
+        response = self.client.get(reverse('register'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'meme_app/register.html')
+
+    def test_register_registers_a_user(self):
+        user_details = {'username' : 'Username', 'first_name': 'John', 'last_name': 'Smith',
+                    'email' : 'example@test.com', 'password' : 'password1'}
+        response = self.client.post(reverse('register'), data=user_details)
+        self.assertTrue(User.objects.filter(username= 'Username').exists())
+'''
+
+MODELS
+
+'''
+
+
 class test_UserProfile_model(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -88,9 +118,9 @@ class test_UserProfile_model(TestCase):
         UserProfile.objects.create(user = test_user, picture = 'https://i.pinimg.com/originals/63/4f/c7/634fc7589ecb8b3229528763c2a246a1.jpg', dob = datetime.now() , bio = '')
         
     def test_UserProfile_user_label(self):
-         up = UserProfile.objects.get(id=1)
-         field_label = up._meta.get_field("user").verbose_name
-         self.assertEquals(field_label, "user")
+        up = UserProfile.objects.get(id=1)
+        field_label = up._meta.get_field("user").verbose_name
+        self.assertEquals(field_label, "user")
 
     def test_UserProfile_picture_label(self):
         up = UserProfile.objects.get(id=1)

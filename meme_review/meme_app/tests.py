@@ -84,6 +84,28 @@ class test_index_view(TestCase):
         self.assertEquals(response.context['popular_memes'].count(), 9)
         self.assertTrue(response.context['popular_memes'].sorted(iterable, key=likes))'''
 
+
+class test_meme_creator_view(TestCase):
+    def setUp(self):
+        test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
+                                      email = 'example@test.com', password = 'password1')
+        test_user.save()
+
+        UserProfile.objects.create(user = test_user, picture = 'https://i.pinimg.com/originals/63/4f/c7/634fc7589ecb8b3229528763c2a246a1.jpg', dob = datetime.now() , bio = '') 
+        
+        pass
+
+    
+    def test_memecreator_redirect_if_not_logged_in(self):
+        response = self.client.get(reverse('meme_creator'))
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(response.url.startswith('/login/'))
+
+    def test_memecreator_access_if_logged_in(self):
+        login = self.client.login(username='Username', password='password1')
+        response = self.client.get(reverse('meme_creator'))
+
+
 class test_register_view(TestCase):
     @classmethod
     def setUp(self):
@@ -101,6 +123,14 @@ class test_register_view(TestCase):
                     'email' : 'example@test.com', 'password' : 'password1'}
         response = self.client.post(reverse('register'), data=user_details)
         self.assertTrue(User.objects.filter(username= 'Username').exists())
+
+    '''def test_register_age_under_13(self):
+        user_birthday = {datetime(2015, 1, 1)}
+
+        response = self.client.post(reverse('register'), data= user_birthday)
+        self.assertFalse(User.objects.filter(dob = datetime(2015, 1, 1)).exists())'''
+
+
 '''
 
 MODELS

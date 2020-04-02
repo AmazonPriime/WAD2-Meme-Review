@@ -80,7 +80,6 @@ class test_index_view(TestCase):
 
 class test_UserProfile_model(TestCase):
     @classmethod
-
     def setUpTestData(cls):
         test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
                                       email = 'example@test.com', password = 'password1')
@@ -88,15 +87,41 @@ class test_UserProfile_model(TestCase):
 
         UserProfile.objects.create(user = test_user, picture = 'https://i.pinimg.com/originals/63/4f/c7/634fc7589ecb8b3229528763c2a246a1.jpg', dob = datetime.now() , bio = '')
         
-    def test_user_label(self):
+    def test_UserProfile_user_label(self):
          up = UserProfile.objects.get(id=1)
-         user_label = up._meta.get_field("user").verbose_name
-         self.assertEquals(user_label, "user")
+         field_label = up._meta.get_field("user").verbose_name
+         self.assertEquals(field_label, "user")
 
-    def test_picture_label(self):
+    def test_UserProfile_picture_label(self):
         up = UserProfile.objects.get(id=1)
-        user_label = up._meta.get_field("picture").verbose_name
-        self.assertEquals(user_label, "picture")
+        field_label = up._meta.get_field("picture").verbose_name
+        self.assertEquals(field_label, "picture")
+
+    def test_UserProfile_dob_label(self):
+        up = UserProfile.objects.get(id=1)
+        field_label = up._meta.get_field("dob").verbose_name
+        self.assertEquals(field_label, "dob")
+
+    def test_UserProfile_bio_label(self):
+        up = UserProfile.objects.get(id=1)
+        field_label = up._meta.get_field("bio").verbose_name
+        self.assertEquals(field_label, "bio")
+
+class test_Category_model(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Category.objects.create(name = 'Test Category')
+
+    def test_category_name_label(self):
+        cat = Category.objects.get(name = 'Test Category')
+        field_label = cat._meta.get_field('name').verbose_name
+        self.assertEquals(field_label, 'name')
+
+    def test_category_max_length(self):
+        cat = Category.objects.get(name = 'Test Category')
+        max_length = cat._meta.get_field('name').max_length
+        self.assertEquals(max_length, 64)
+        
 
 
         

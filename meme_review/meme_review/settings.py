@@ -146,6 +146,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.mail.yahoo.com'
 EMAIL_HOST_USER = 'djangomemereviews@yahoo.com'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# this password will not work as for security reasons we cannot
+# give out this password as it gives access to the email
 EMAIL_HOST_PASSWORD = 'ijlqdixxsqegmsyg'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

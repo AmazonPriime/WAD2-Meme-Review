@@ -5,21 +5,6 @@ from meme_app.models import UserProfile, Category, Meme, Comment, View, MemeRati
 from meme_app.forms import UserForm
 from datetime import datetime
 
-def add_meme(title, picture, likes, dislikes, views, category, user,
-             date = datetime.now(), nsfw = False):
-
-    meme = Meme.objects.create()[0]
-    meme.user = user
-    meme.title = title
-    meme.picture = picture
-    meme.date = date
-    meme.likes = likes
-    meme.dislikes = dislikes
-    meme.views = views
-    meme.category = UserObject.objects(name = category)
-    meme.nsfw = nsfw
-    meme.save()
-    return meme
 
 '''
 
@@ -70,49 +55,77 @@ class test_index_view(TestCase):
         self.assertContains(response, 'Currently no popular memes.')
         self.assertEquals(response.context['popular_memes'].count(), 0)
 
-    '''def test_index_view_with_popular_memes(self):
+    def test_index_view_with_popular_memes(self):
 
-        test_user = UserProfile.objects.get_or_create(user_id = 1)[0]
-        test_cat = Category.objects.get_or_create('Test Category')[0]
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 1, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 2, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 3, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 4, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 5, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 6, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 6, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 8, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
+        Meme.objects.create(user = UserProfile.objects.get(user_id = 1), title= 'Test Meme', picture = 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
+                                   date = datetime.now() , likes = 7, dislikes = 0, views = 10, category = Category.objects.get(name = 'Test Category'), nsfw = False)
 
-        for i in range(9):
-            add_meme(str(i), 'https://icatcare.org/app/uploads/2018/06/Layer-1704-1920x840.jpg',
-                     i, 0, 100, test_cat, test_user)
-
-        
+        response = self.client.get(reverse('index'))
         self.assertEqual(response.status_code, 200)
         self.assertEquals(response.context['popular_memes'].count(), 9)
-        self.assertTrue(response.context['popular_memes'].sorted(iterable, key=likes))'''
 
 
 class test_meme_creator_view(TestCase):
-    def setUp(self):
-        test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
-                                      email = 'example@test.com', password = 'password1')
-        test_user.save()
 
-        UserProfile.objects.create(user = test_user, picture = 'https://i.pinimg.com/originals/63/4f/c7/634fc7589ecb8b3229528763c2a246a1.jpg', dob = datetime.now() , bio = '') 
-        
-        pass
-
-    
-    def test_memecreator_redirect_if_not_logged_in(self):
-        response = self.client.get(reverse('meme_creator'))
-        self.assertEqual(response.status_code, 302)
-        self.assertTrue(response.url.startswith('/login/'))
-
-    def test_memecreator_access_if_logged_in(self):
-        login = self.client.login(username='Username', password='password1')
-        response = self.client.get(reverse('meme_creator'))
-
-
-class test_register_view(TestCase):
     @classmethod
     def setUp(self):
         test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
                                       email = 'example@test.com', password = 'password1')
         test_user.save()
 
+        UserProfile.objects.create(user = test_user, picture = 'https://i.pinimg.com/originals/63/4f/c7/634fc7589ecb8b3229528763c2a246a1.jpg', dob = datetime.now() , bio = '') 
+
+        Category.objects.create(name = 'Test Category')
+        
+        pass
+
+    
+    def test_memecreator_redirect_if_not_logged_in(self):
+        
+        response = self.client.get(reverse('meme_creator'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/login/?next=/meme_creator/')
+
+    def test_memecreator_access_if_logged_in(self):
+        login = self.client.login(username='Username', password='password1')
+        response = self.client.get(reverse('meme_creator'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_redirect_if_meme_made(self):
+        login = self.client.login(username='Username', password='password1')
+        meme_details = {'title': 'test meme' , 'category': 'Test Category'}
+        
+        response = self.client.post(reverse('meme_creator'), data = meme_details)
+        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, '/meme/')
+        
+
+class test_register_view(TestCase):
+    
+    @classmethod
+    def setUp(self):
+
+        test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
+                                      email = 'example@test.com', password = 'password1')
+        test_user.save()
+        pass
+    
     def test_register_correct_template(self):
         response = self.client.get(reverse('register'))
         self.assertEqual(response.status_code, 200)
@@ -124,21 +137,16 @@ class test_register_view(TestCase):
         response = self.client.post(reverse('register'), data=user_details)
         self.assertTrue(User.objects.filter(username= 'Username').exists())
 
-    '''def test_register_age_under_13(self):
-        user_birthday = {datetime(2015, 1, 1)}
-
-        response = self.client.post(reverse('register'), data= user_birthday)
-        self.assertFalse(User.objects.filter(dob = datetime(2015, 1, 1)).exists())'''
-
 
 '''
 
-MODELS
+Models
 
 '''
 
 
 class test_UserProfile_model(TestCase):
+    
     @classmethod
     def setUpTestData(cls):
         test_user = User.objects.create_user(username = 'Username', first_name = 'John', last_name = 'Smith',
@@ -166,8 +174,10 @@ class test_UserProfile_model(TestCase):
         up = UserProfile.objects.get(id=1)
         field_label = up._meta.get_field("bio").verbose_name
         self.assertEquals(field_label, "bio")
+        
 
 class test_Category_model(TestCase):
+    
     @classmethod
     def setUpTestData(cls):
         Category.objects.create(name = 'Test Category')
